@@ -8,7 +8,14 @@
     Welcome to the main page 
     <br>
 
-    <form method="POST" action="/welcomePage">
+    <form method="POST" action="/loginRedirect">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+        <font color="red">{{ message }}</font><br>
+        {% endfor %}
+      {% endif %}
+      {% endwith %}
       Username: <input type="text" name="user">
       <br>
       Password: <input type="text" name="password">
