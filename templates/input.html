@@ -1,0 +1,12 @@
+{% extends "form.html" %}
+
+{% block content1 %}
+Welcome, {{user}}, to this page!<br>
+Your username: {{user}}<br>
+Request method used: {{method}}<br>
+
+<form action = "/logout" method = "GET">
+  <input type = "submit" value = "logout">
+</form>
+
+{% endblock %}
