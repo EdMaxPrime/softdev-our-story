@@ -1,6 +1,6 @@
 import sqlite3 #enables control of an sqlite database
 
-db = sqlite3.connect("data/ourDB.db") #opens ourDB.db
+db = sqlite3.connect("ourDB.db") #opens ourDB.db
 c = db.cursor() #opens a cursor object
 
 #-------------------------------------------------------------
