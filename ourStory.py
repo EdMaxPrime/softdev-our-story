@@ -23,16 +23,16 @@ def login():
     if user == 'bob':
         if request.form['password'] == 'secret':
             session['user'] = request.form['user']
-            return render_template('input.html', title = user + "'s", user = user, method = request.method)
+            return render_template(url_for('stories'))
         else:
             flash("Sorry, wrong password")
     else:
         flash("Sorry, wrong username")
-	return redirect(url_for('stories'))
+	return redirect(url_for('home'))
 
 @app.route('/stories')
 def stories():
-    return render_template(url_for('home'))
+    return render_template("story.html")
 
 @app.route('/story', methods = ['GET'])
 def story():
