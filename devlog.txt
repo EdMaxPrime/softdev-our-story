@@ -6,3 +6,6 @@ Moved files around so that they conform to the flask directory structure.
 
 gaoJ -- 2017-10-24 21:00
 Created HTML file for the form to create new story.  Also addded css stylesheet for that HTML file.
+
+soeW -- 2017-10-24 22:23
+Created the python file for the creation of the story table and to update all fields in the table.
