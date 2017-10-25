@@ -1,3 +1,6 @@
+chengM -- 2017-10-24 14:45
+Added flask app file, along with some templates
+
 zlotskiyM -- 2017-10-23 23:30
 The design document makes its debut. Outlined core features and dvided up the work.
 
@@ -9,3 +12,4 @@ Created HTML file for the form to create new story.  Also addded css stylesheet 
 
 soeW -- 2017-10-24 22:23
 Created the python file for the creation of the story table and to update all fields in the table.
+
