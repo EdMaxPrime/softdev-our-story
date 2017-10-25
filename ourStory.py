@@ -16,9 +16,6 @@ def home():
 def help():
     return
 
-@app.route('/loginRedirect')
-def loginRedirect():
-    return
 
 @app.route('/loginRedirect', methods=['POST','GET'])
 def loginRedirect():
@@ -34,6 +31,14 @@ def loginRedirect():
         	flash("Sorry, wrong username")
 	return redirect(url_for('home'))       
 
+@app.route('/create', methods=['POST','GET'])
+def createStory():
+    return render_template('createStory.html')
+
+@app.route('/story',methods=['POST','GET'])
+def stories():
+    return render_template('story.html')
+    
 @app.route('/logout')
 def logout():
         session.pop('user')
