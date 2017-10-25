@@ -18,21 +18,21 @@ def help():
 
 @app.route('/login', methods=['POST','GET'])
 def login():
-	print request.form['user']
-        user = request.form['user']
-        if user == 'bob':
-                if request.form['password'] == 'secret':
-                        session['user'] = request.form['user']
-                        return render_template('input.html', title = user + "'s", user = user, method = request.method)
-                else:
-                	flash("Sorry, wrong password")
+    print request.form['user']
+    user = request.form['user']
+    if user == 'bob':
+        if request.form['password'] == 'secret':
+            session['user'] = request.form['user']
+            return render_template('input.html', title = user + "'s", user = user, method = request.method)
         else:
-        	flash("Sorry, wrong username")
+            flash("Sorry, wrong password")
+    else:
+        flash("Sorry, wrong username")
 	return redirect(url_for('stories'))
 
 @app.route('/stories')
 def stories():
-    return
+    return render_template(url_for('home'))
 
 @app.route('/story', methods = ['GET'])
 def story():
