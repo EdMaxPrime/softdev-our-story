@@ -35,7 +35,7 @@ def loginRedirect():
 def createStory():
     return render_template('createStory.html')
 
-@app.route('/story',methods=['POST','GET'])
+@app.route('/stories',methods=['POST','GET'])
 def stories():
     return render_template('story.html')
     
