@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ page_title }}</title>
+    <style type="text/css">
+        #menu_container {
+	    position: fixed;
+	    top: 0px;
+	    background-color: yellow;
+	    padding: 0px;
+	    margin: 0 auto;
+	}
+	#menu_container ul {
+	    list-style-type: none;
+	}
+	#menu_container li {
+	    display: inline-block;
+	}
+	#menu_container li * {
+	    display: inline-block;
+	    width: 150px;
+	}
+	#menu_container li a {
+	    text-align: center;
+	}
+	#menu_container li a:hover {
+	    background-color: green;
+	}
+    </style>
+</head>
+<body>
+    <div id="menu_container">
+        <ul>
+	    <li><input type="text" placeholder="search"></li>
+	    <li><a href="">All Stories</a></li>
+	    <li><a href="">New Story(+)</a></li>
+	    <li><a href="">My Page</a></li>
+	    <li><a href="">Logout</a></li>
+	</ul>
+    </div>
+    {% block body %}
+    {% endblock %]
+</body>
+</html>
