@@ -16,12 +16,8 @@ def home():
 def help():
     return
 
-@app.route('/loginRedirect')
-def loginRedirect():
-    return
-
-@app.route('/loginRedirect', methods=['POST','GET'])
-def loginRedirect():
+@app.route('/login', methods=['POST','GET'])
+def login():
 	print request.form['user']
         user = request.form['user']
         if user == 'bob':
@@ -32,7 +28,24 @@ def loginRedirect():
                 	flash("Sorry, wrong password")
         else:
         	flash("Sorry, wrong username")
-	return redirect(url_for('home'))       
+	return redirect(url_for('stories'))
+
+@app.route('/stories')
+def stories():
+    return
+
+@app.route('/story', methods = ['GET'])
+def story():
+    return
+
+@app.route('/search', methods = ['GET'])
+def search():
+    return
+
+@app.route('/user', methods = ['GET'])
+def user():
+    return 
+
 
 @app.route('/logout')
 def logout():
