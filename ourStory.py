@@ -9,7 +9,7 @@ app.secret_key = "THIS IS NOT SECURE"
 @app.route('/')
 def home():
     if 'user' in session:
-        return render_template("input.html", user = session['user'], method = request.method)
+        return redirect(url_for('stories'))
     else:
         return render_template('form.html', title = 'Main')
 
@@ -23,15 +23,21 @@ def login():
     c = db.cursor() #opens a cursor object
     #print request.form['user']
     user = request.form['user']
+    print user
     command = "SELECT password FROM users WHERE username='%s';"%(user)
+    print command
     c.execute(command)
     credentials = c.fetchall()
-    password = credentials[0][0]
-    if request.form['password'] == password:
-        session['user'] = request.form['user']
-        return redirect(url_for('stories'))
+    print credentials
+    if credentials:
+        password = credentials[0][0]
+        if request.form['password'] == password:
+            session['user'] = request.form['user']
+            return redirect(url_for('stories'))
+        else:
+            flash("Sorry, wrong password and/or username")
     else:
-        flash("Sorry, wrong password")
+        flash("User not found")
     return redirect(url_for('home'))
 
 @app.route('/join')
