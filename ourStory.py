@@ -11,7 +11,7 @@ def home():
     if 'user' in session:
         return redirect(url_for('stories'))
     else:
-        return render_template('form.html', title = 'Main')
+        return render_template('form.html', title = 'OurStory Website')
 
 @app.route('/help')
 def help():
