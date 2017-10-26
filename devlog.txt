@@ -18,3 +18,6 @@ created story.html, which will later display stories, and added /stories and /cr
 
 chengM -- 2017-10-25 20:49
 Edited /login route and added /user, /search, /story routes (Not implemented). Merged flaskapp branch with master branch.
+
+chengM -- 2017-10-25 22:2-
+Implemented login() and join(), with database functionality.
