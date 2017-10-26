@@ -24,7 +24,7 @@ def login():
     if user == 'bob':
         if request.form['password'] == 'secret':
             session['user'] = request.form['user']
-            return render_template(url_for('stories'))
+            return redirect(url_for('stories'))
         else:
             flash("Sorry, wrong password")
     else:
