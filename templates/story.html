@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block body %}
 <h1>Stories</h1>
+{% for story in listStories %}
+{{ story["id"] }}
+{% endfor %}
 {% endblock %}
 
