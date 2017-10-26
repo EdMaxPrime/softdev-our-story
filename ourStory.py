@@ -1,5 +1,6 @@
 from flask import Flask, flash, render_template, request, session, redirect, url_for
 import sqlite3
+import util.users as users
 
 
 app = Flask(__name__)
@@ -8,28 +9,47 @@ app.secret_key = "THIS IS NOT SECURE"
 @app.route('/')
 def home():
     if 'user' in session:
-                return render_template("input.html", user = session['user'], method = request.method)
+        return render_template("input.html", user = session['user'], method = request.method)
     else:
-	        return render_template('form.html', title = 'Main')
+        return render_template('form.html', title = 'Main')
 
 @app.route('/help')
 def help():
     return
 
-
 @app.route('/login', methods=['POST','GET'])
 def login():
-    print request.form['user']
+    db = sqlite3.connect("data/ourDB.db") #opens ourDB.db
+    c = db.cursor() #opens a cursor object
+    #print request.form['user']
     user = request.form['user']
-    if user == 'bob':
-        if request.form['password'] == 'secret':
-            session['user'] = request.form['user']
-            return redirect(url_for('stories'))
-        else:
-            flash("Sorry, wrong password")
+    command = "SELECT password FROM users WHERE username='%s';"%(user)
+    c.execute(command)
+    credentials = c.fetchall()
+    password = credentials[0][0]
+    if request.form['password'] == password:
+        session['user'] = request.form['user']
+        return redirect(url_for('stories'))
     else:
-        flash("Sorry, wrong username")
-	return redirect(url_for('home'))
+        flash("Sorry, wrong password")
+    return redirect(url_for('home'))
+
+@app.route('/join')
+def join():
+    return render_template("join.html")
+
+@app.route('/joinRedirect', methods=['POST','GET'])
+def joinRedirect():
+    db = sqlite3.connect("data/ourDB.db") #opens ourDB.db
+    if request.form['password'] == request.form['passwordConfirm']:
+        users.add_new_user(db, request.form['user'], request.form['password'], request.form['name'])
+        db.commit()
+        session['user'] = request.form['user']
+        return redirect(url_for('stories'))
+    else:
+        flash("Passwords do not match")
+    return redirect(url_for('join'))
+    
 
 @app.route('/stories')
 def stories():
@@ -57,5 +77,5 @@ def logout():
         return redirect(url_for('home'))
 
 if __name__ == "__main__":
-	app.debug = True
-	app.run()
+    app.debug = True
+    app.run()
