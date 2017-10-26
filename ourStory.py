@@ -16,6 +16,7 @@ def home():
 def help():
     return
 
+
 @app.route('/login', methods=['POST','GET'])
 def login():
     print request.form['user']
@@ -46,6 +47,9 @@ def search():
 def user():
     return 
 
+@app.route('/create', methods=['POST','GET'])
+def createStory():
+    return render_template('createStory.html')
 
 @app.route('/logout')
 def logout():
