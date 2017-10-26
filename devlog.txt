@@ -15,3 +15,6 @@ Created the python file for the creation of the story table and to update all fi
 
 gaoJ -- 2017-10-25 14:45
 created story.html, which will later display stories, and added /stories and /create routes.
+
+chengM -- 2017-10-25 20:49
+Edited /login route and added /user, /search, /story routes (Not implemented). Merged flaskapp branch with master branch.
