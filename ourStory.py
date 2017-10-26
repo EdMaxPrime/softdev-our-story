@@ -17,28 +17,40 @@ def help():
     return
 
 
-@app.route('/loginRedirect', methods=['POST','GET'])
-def loginRedirect():
-	print request.form['user']
-        user = request.form['user']
-        if user == 'bob':
-                if request.form['password'] == 'secret':
-                        session['user'] = request.form['user']
-                        return render_template('input.html', title = user + "'s", user = user, method = request.method)
-                else:
-                	flash("Sorry, wrong password")
+@app.route('/login', methods=['POST','GET'])
+def login():
+    print request.form['user']
+    user = request.form['user']
+    if user == 'bob':
+        if request.form['password'] == 'secret':
+            session['user'] = request.form['user']
+            return render_template(url_for('stories'))
         else:
-        	flash("Sorry, wrong username")
-	return redirect(url_for('home'))       
+            flash("Sorry, wrong password")
+    else:
+        flash("Sorry, wrong username")
+	return redirect(url_for('home'))
+
+@app.route('/stories')
+def stories():
+    return render_template("story.html")
+
+@app.route('/story', methods = ['GET'])
+def story():
+    return
+
+@app.route('/search', methods = ['GET'])
+def search():
+    return
+
+@app.route('/user', methods = ['GET'])
+def user():
+    return 
 
 @app.route('/create', methods=['POST','GET'])
 def createStory():
     return render_template('createStory.html')
 
-@app.route('/stories',methods=['POST','GET'])
-def stories():
-    return render_template('story.html')
-    
 @app.route('/logout')
 def logout():
         session.pop('user')
