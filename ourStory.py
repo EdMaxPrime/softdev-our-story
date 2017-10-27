@@ -29,6 +29,8 @@ def login():
     c.execute(command)
     credentials = c.fetchall()
     print credentials
+    db.close()
+    print users.validate_login(user, request.form["password"])
     if credentials:
         password = credentials[0][0]
         if request.form['password'] == password:
