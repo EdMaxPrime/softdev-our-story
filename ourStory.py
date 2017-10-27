@@ -1,6 +1,7 @@
 from flask import Flask, flash, render_template, request, session, redirect, url_for
 import sqlite3
 import util.users as users
+import util.storyId as storyId
 
 
 app = Flask(__name__)
@@ -59,7 +60,7 @@ def joinRedirect():
 
 @app.route('/stories')
 def stories():
-    return render_template("story.html")
+    return render_template("story.html", page_title="Stories", listStories=storyId.getAllStories())
 
 @app.route('/story', methods = ['GET'])
 def story():

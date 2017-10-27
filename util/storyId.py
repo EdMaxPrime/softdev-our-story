@@ -18,6 +18,10 @@ def modify_story(contributor, text_contributed, when, story_id):
     version_number += 1
     db.commit()
 
+def getAllStories():
+    return [{"id":0, "title":"Fairy Tale", "author":"Max"}]
+
+
 #add a contribution to a story
 #def add_contribution(story_contribution, story_id):
 #command = "INSERT INTO story_%d VALUES (

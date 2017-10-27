@@ -1,0 +1,6 @@
+textarea{
+      width: 50%;
+      border-radius: 4px;
+      background-color: F2F0EF;
+      height: 150px;
+ }
