@@ -61,3 +61,5 @@ def add_new_story(new_title, started_creator, selected_genre, word_lim, set_cool
     command = "INSERT INTO AllStories VALUES(%s, %s, %d, %s, %d, %d, 0, 0, 0, 0);"%(new_title, started_creator, new_id, selected_genre, word_lim, set_cooldown)
     c.execute(command)
     db.commit()
+
+

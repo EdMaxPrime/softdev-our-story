@@ -12,7 +12,7 @@ def home():
     if 'user' in session:
         return redirect(url_for('stories'))
     else:
-        return render_template('form.html', title = 'Main')
+        return render_template('form.html', title = 'OurStory Website')
 
 @app.route('/help')
 def help():
@@ -30,6 +30,8 @@ def login():
     c.execute(command)
     credentials = c.fetchall()
     print credentials
+    db.close()
+    print users.validate_login(user, request.form["password"])
     if credentials:
         password = credentials[0][0]
         if request.form['password'] == password:

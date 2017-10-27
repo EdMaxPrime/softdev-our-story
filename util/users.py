@@ -35,3 +35,12 @@ def update_fullname(c, user, old_name, new_name):
 def get_user_info(c, user):
     command = "SELECT password,fullname FROM users WHERE username = %s;" %(user) 
 
+#Given a username and password, will return true if the two correspond, false otherwise
+def validate_login(uname, pword):
+    db = sqlite3.connect("data/ourDB.db")
+    c = db.cursor()
+    users = c.execute("SELECT password FROM users WHERE username='%s';" % (uname,)).fetchone()
+    db.close()
+    if users == None:
+        return False
+    return users[0] == pword
