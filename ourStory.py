@@ -102,7 +102,7 @@ def createStory():
 def created():
     title=request.form["title"]
     genre=request.form["genre"]
-    wordLimit=request.form["wordLimit"]
+    wordLimit=request.form["charLimit"]
     content=request.form["storyContent"]
     userName=session["user"]
     idNum=mystory.add_new_story(title, userName, genre,wordLimit, 100)
