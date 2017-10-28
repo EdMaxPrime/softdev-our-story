@@ -2,13 +2,13 @@
 {% block body %}
 <h1>Stories</h1>
 <div class="form">
-    <u>Filter search results:</u> <br>
     <form method="GET" action="/search">
+        <u>Filter search results:</u> <input type="submit" value="Search"> <br>
         Genre: <input type="text" name="genre" placeholder="leave blank to search for ALL">&nbsp;&nbsp;&nbsp;&nbsp;
         Author: <input type="text" name="by" placeholder="leave blank to search for ALL">&nbsp;&nbsp;&nbsp;&nbsp;
         Title: <input type="text" name="q" placeholder="leave blank to search for ALL"><br>
         Status: <input type="radio" name="status" value="finished">finished&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="status" value="unfinished">unfinished&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="status" value="all">all<br>
-        <input type="submit" value="Search">
+        List by: <input type="radio" name="sort" value="c">date created&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="sort" value="d">date modified&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="sort" value="a">title&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="sort" value="v">views&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="sort" value="p">popularity<br>
     </form>
 </div>
 <br><br>
