@@ -42,6 +42,15 @@ def filter_by_title(fragment, list_of_stories):
             results.append(story)
     return results
 
+#Filters a list of dictionaries, returning a list of those that contain the fragment in their title
+def filter_by_genre(genre, list_of_stories):
+    results = []
+    genre = genre.replace(' ', '_').lower()
+    for story in list_of_stories:
+        if story["genre"].find(genre) != -1:
+            results.append(story)
+    return results
+
 #add a contribution to a story
 #def add_contribution(story_contribution, story_id):
 #command = "INSERT INTO story_%d VALUES (
