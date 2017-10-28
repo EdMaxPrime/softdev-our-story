@@ -39,9 +39,10 @@ def filter_by_title(fragment, list_of_stories):
 #Filters a list of dictionaries, returning a list of those that contain the specified genre
 def filter_by_genre(genre, list_of_stories):
     results = []
-    genre = genre.replace(' ', '_').lower()
+    genre = genre.lower()
     for story in list_of_stories:
-        if story["genre"].find(genre) != -1:
+        storyGenre = story["genre"].replace('_', ' ')
+        if storyGenre.find(genre) != -1 or genre.find(storyGenre) != -1:
             results.append(story)
     return results
 
@@ -80,6 +81,7 @@ def sortby(criteria, list_of_stories):
         list_of_stories.sort(key = lambda story: story["popularity"])
     return list_of_stories
 
+#Returns a list of dictionaries containing username and fullname, matching either one to the supplied input, call with 0 arguments to get ALL users
 def getUsers(matching=""):
     db = sqlite3.connect(db_name)
     c = db.cursor()
