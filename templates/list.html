@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block body %}
+<h1>Stories</h1>
+<div id="results">
+{% for story in listStories %}
+    {% set id = story["id"] %}
+    {% set who = story["author"] %}
+    {% set genre = story["genre"] %}
+    <a href="/story?id={{id}}">{{ story["title"] }}</a>
+    By: <a href="/user?id={{ who }}">{{ who }}</a>
+    [{{ genre }}]
+    <br>
+{% endfor %}
+</div>
+{% endblock %}
+

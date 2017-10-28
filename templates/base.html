@@ -3,15 +3,17 @@
 <head>
     <title>{{ page_title }}</title>
     <style type="text/css">
-        #menu_container {
-	    position: fixed;
+    #menu_container {
 	    top: 0px;
+        text-align: center;
 	    background-color: yellow;
 	    padding: 0px;
-	    margin: 0 auto;
 	}
 	#menu_container ul {
 	    list-style-type: none;
+        display: inline-block;
+        padding: 0px;
+        margin: 0px;
 	}
 	#menu_container li {
 	    display: inline-block;
@@ -19,13 +21,16 @@
 	#menu_container li * {
 	    display: inline-block;
 	    width: 150px;
+        padding-top: 10px;
+        padding-bottom: 10px;
 	}
+    #menu_container li:hover {
+        background-color: green;
+    }
 	#menu_container li a {
 	    text-align: center;
 	}
-	#menu_container li a:hover {
-	    background-color: green;
-	}
+	
     </style>
 </head>
 <body>
