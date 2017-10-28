@@ -11,7 +11,7 @@ app.secret_key = "THIS IS NOT SECURE"
 @app.route('/')
 def home():
     if 'user' in session:
-        return redirect(url_for('stories'))
+        return redirect(url_for('stories_route'))
     else:
         return render_template('form.html', title = 'OurStory Website')
 
@@ -37,7 +37,7 @@ def login():
         password = credentials[0][0]
         if request.form['password'] == password:
             session['user'] = request.form['user']
-            return redirect(url_for('stories'))
+            return redirect(url_for('stories_route'))
         else:
             flash("Sorry, wrong password and/or username")
     else:
@@ -72,7 +72,7 @@ def story_route():
 @app.route('/search', methods = ['GET'])
 def search_route():
     results = search.getAllStories()
-    listUsers = False
+    listUsers = False #jinja wont render this if you are not searching for author/user
     query = request.args.get("q", "")
     author = request.args.get("by", "")
     genre = request.args.get("genre", "")
@@ -96,7 +96,7 @@ def user():
 
 @app.route('/create', methods=['POST','GET'])
 def createStory():
-    return render_template('createStory.html')
+    return render_template('createStory.html', page_title="Create Story")
 
 @app.route('/logout')
 def logout():

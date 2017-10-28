@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Create Story</title>
-    <link rel="stylesheet" href="../static/storyStylesheet.css">
-  </head>
-  <body>
+{% extends "base.html" %}
+{% block body %}
     <h1>CREATE STORY</h1>
     <form method="POST" action="/created">
       Title: <input type="text" name="title"><br><br>
       Story Content: <br><textarea></textarea><br><br>
       <input type="submit" value="Create">
       </form>
-  </body>
-</html>
+{% endblock %}
