@@ -5,6 +5,7 @@ c = db.cursor() #creates cursor object to interact with database
 
 #-------------------------------------------------------------------
 version_number = 0
+db_name = "data/test.db"
 
 #Create story_id table (RUN ONCE)
 def create_story_table(story_id):
@@ -18,9 +19,26 @@ def modify_story(contributor, text_contributed, when, story_id):
     version_number += 1
     db.commit()
 
+#Returns all the stories in the master table "stories" with their metadata as a list of dictionaries
 def getAllStories():
-    return [{"id":0, "title":"Fairy Tale", "author":"Max"}]
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    list_of_tuples = c.execute("SELECT id, title, creator, genre FROM stories;").fetchall()
+    db.close()
+    list_of_stories = []
+    for story in list_of_tuples:
+        list_of_stories.append(tuple_to_dictionary(story, ['id', 'title', 'author', 'genre']))
+    return list_of_stories
+    #return [{"id":0, "title":"Fairy Tale", "author":"Max"}]
 
+#Given a tuple/list and a list of strings, will create a dictionary where the first key in the list corresponds to the first element in the tuple
+def tuple_to_dictionary(tuuple, list_of_keys):
+    d = {} #the dictionary
+    index = 0 #the column index
+    while index < len(tuuple):
+        d[ list_of_keys[index] ] = tuuple[index]
+        index += 1
+    return d
 
 #add a contribution to a story
 #def add_contribution(story_contribution, story_id):
