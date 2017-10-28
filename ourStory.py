@@ -72,6 +72,7 @@ def story_route():
 @app.route('/search', methods = ['GET'])
 def search_route():
     results = search.getAllStories()
+    listUsers = False
     query = request.args.get("q", "")
     author = request.args.get("by", "")
     genre = request.args.get("genre", "")
@@ -83,10 +84,11 @@ def search_route():
         results = search.filter_by_genre(genre, results)
     if author != "":
         results = search.filter_by_author(author, results)
+        listUsers = search.getUsers(author)
     if status != "":
         results = search.filter_by_status(status, results)
     results = search.sortby(sortby, results)
-    return render_template("list.html", page_title="Search Results", listStories=results, listUsers=search.getUsers(author))
+    return render_template("list.html", page_title="Search Results", listStories=results, listUsers=listUsers)
 
 @app.route('/user', methods = ['GET'])
 def user():
