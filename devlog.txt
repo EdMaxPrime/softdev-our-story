@@ -27,6 +27,9 @@ zlotskiyM -- 2017-10-26 21:27
 Wrote validate_login, overcoming concurrency issues in users.py and moving login logic away from the route functions
 
 [STUFF FROM FRIDAY 10/27]
+gaoJ -- 2017-10-26 14:45
+Tested the link of stories generated when pulling information from the list of dictionaries of stories (which contain id, author, and content).
+
 zlotskiyM -- 2017-10-26 21:27
 Renamed database manipulation files in util/ to reflect their real purpose. One will be used for searching the database, and another for modifying stories
 Changed search.getAllStories() to actually poll the test database and return a list of dictionaries containing id, title, author and genre.
