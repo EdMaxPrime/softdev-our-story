@@ -6,12 +6,6 @@ c = db.cursor() #creates cursor object to interact with database
 #-------------------------------------------------------------------
 version_number = 0
 db_name = "data/test.db"
-    
-#begin a story
-def modify_story(contributor, text_contributed, when, story_id):
-    command = "INSERT INTO story_%d VALUES (%d, %s,%s,%s);" %(version_number,story_id, contributor, text_contributed, when)
-    version_number += 1
-    db.commit()
 
 #Returns all the stories in the master table "stories" with their metadata as a list of dictionaries
 def getAllStories():

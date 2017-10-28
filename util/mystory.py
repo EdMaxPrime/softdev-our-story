@@ -30,9 +30,12 @@ def update_cooldown(story_id,new_cd):
     db.commit()
 
 def update_contributions(story_id,new_contribution):
-    command = "UPDATE AllStories SET contributions = %d WHERE id = %d" % (new_contribution, story_id)
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = "UPDATE stories SET contributions = %d WHERE id = %d" % (new_contribution, story_id)
     c.execute(command)
     db.commit()
+    db.close()
 
 def update_finished(story_id):
     command = "UPDATE AllStories SET finished = ~finished WHERE id = %d" % (story_id)
@@ -62,6 +65,15 @@ def add_new_story(new_title, started_creator, selected_genre, word_lim, cooldown
     c.execute(command)
     command = "CREATE TABLE story_%d (version_num INTEGER PRIMARY KEY, contributor TEXT, text_contributed TEXT, timestamp TEXT);" % (id,)
     c.execute(command)
+    db.commit()
+    db.close()
+
+
+#add contribution to a story
+def modify_story(contributor, text_contributed, story_id):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = "INSERT INTO story_%d VALUES (%d, %s, %s, datetime('YYYY-MM-DD HH:MM:SS.SSS'));" %(story_id, 0, contributor, text_contributed)
     db.commit()
     db.close()
 
