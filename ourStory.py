@@ -63,7 +63,7 @@ def joinRedirect():
 
 @app.route('/stories')
 def stories():
-    return render_template("list.html", page_title="Stories", listStories=search.filter_by_author("max", search.getAllStories()))
+    return render_template("list.html", page_title="Stories", listStories=search.filter_by_status("all", search.getAllStories()))
 
 @app.route('/story', methods = ['GET'])
 def story():

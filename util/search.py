@@ -17,11 +17,11 @@ def modify_story(contributor, text_contributed, when, story_id):
 def getAllStories():
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    list_of_tuples = c.execute("SELECT id, title, creator, genre FROM stories;").fetchall()
+    list_of_tuples = c.execute("SELECT id, title, creator, genre, finished FROM stories;").fetchall()
     db.close()
     list_of_stories = []
     for story in list_of_tuples:
-        list_of_stories.append(tuple_to_dictionary(story, ['id', 'title', 'author', 'genre']))
+        list_of_stories.append(tuple_to_dictionary(story, ['id', 'title', 'author', 'genre', 'finished']))
     return list_of_stories
     #return [{"id":0, "title":"Fairy Tale", "author":"Max"}]
 
@@ -56,6 +56,20 @@ def filter_by_author(author, list_of_stories):
     results = []
     for story in list_of_stories:
         if story["author"].find(author) != -1:
+            results.append(story)
+    return results
+
+#Filters a list of dictionaries, returning a list of those that are finished/unfinished or both
+def filter_by_status(status, list_of_stories):
+    results = []
+    if status == "all":
+        return list_of_stories
+    elif status == "finished":
+        status = 1
+    elif status == "unfinished":
+        status = 0
+    for story in list_of_stories:
+        if story["finished"] == status:
             results.append(story)
     return results
 
