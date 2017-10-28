@@ -62,16 +62,31 @@ def joinRedirect():
     
 
 @app.route('/stories')
-def stories():
+def stories_route():
     return render_template("list.html", page_title="Stories", listStories=search.sortby("v", search.getAllStories()))
 
 @app.route('/story', methods = ['GET'])
-def story():
+def story_route():
     return
 
 @app.route('/search', methods = ['GET'])
 def search_route():
-    return
+    results = search.getAllStories()
+    query = request.args.get("q", "")
+    author = request.args.get("by", "")
+    genre = request.args.get("genre", "")
+    status = request.args.get("status", "")
+    sortby = request.args.get("sort", "c")
+    if query != "":
+        results = search.filter_by_title(query, results)
+    if genre != "":
+        results = search.filter_by_genre(genre, results)
+    if author != "":
+        results = search.filter_by_author(author, results)
+    if status != "":
+        results = search.filter_by_status(status, results)
+    results = search.sortby(sortby, results)
+    return render_template("list.html", page_title="Search Results", listStories=results)
 
 @app.route('/user', methods = ['GET'])
 def user():

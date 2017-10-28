@@ -16,6 +16,7 @@ def getAllStories():
     list_of_stories = []
     for story in list_of_tuples:
         list_of_stories.append(tuple_to_dictionary(story, ['id', 'title', 'author', 'genre', 'finished', 'popularity', 'views']))
+        list_of_stories[-1]["story"] = True #to differentiate from users
     return list_of_stories
     #return [{"id":0, "title":"Fairy Tale", "author":"Max"}]
 
