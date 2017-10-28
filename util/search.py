@@ -42,12 +42,20 @@ def filter_by_title(fragment, list_of_stories):
             results.append(story)
     return results
 
-#Filters a list of dictionaries, returning a list of those that contain the fragment in their title
+#Filters a list of dictionaries, returning a list of those that contain the specified genre
 def filter_by_genre(genre, list_of_stories):
     results = []
     genre = genre.replace(' ', '_').lower()
     for story in list_of_stories:
         if story["genre"].find(genre) != -1:
+            results.append(story)
+    return results
+
+#Filters a list of dictionaries, returning a list of those that have this author
+def filter_by_author(author, list_of_stories):
+    results = []
+    for story in list_of_stories:
+        if story["author"].find(author) != -1:
             results.append(story)
     return results
 
