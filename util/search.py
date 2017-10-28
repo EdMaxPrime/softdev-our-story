@@ -34,6 +34,14 @@ def tuple_to_dictionary(tuuple, list_of_keys):
         index += 1
     return d
 
+#Filters a list of dictionaries, returning a list of those that contain the fragment in their title
+def filter_by_title(fragment, list_of_stories):
+    results = []
+    for story in list_of_stories:
+        if story["title"].find(fragment) != -1:
+            results.append(story)
+    return results
+
 #add a contribution to a story
 #def add_contribution(story_contribution, story_id):
 #command = "INSERT INTO story_%d VALUES (
