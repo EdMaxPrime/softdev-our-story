@@ -24,7 +24,7 @@
         padding-top: 10px;
         padding-bottom: 10px;
 	}
-    #menu_container li:hover {
+    #menu_container li a:hover {
         background-color: green;
     }
 	#menu_container li a {
@@ -32,11 +32,12 @@
 	}
 	
     </style>
+    <link rel="stylesheet" type="text/css" href="/static/storyStylesheet.css">
 </head>
 <body>
     <div id="menu_container">
         <ul>
-	    <li><input type="text" placeholder="search"></li>
+	    <li><form method="GET" action="/search"><input type="text" name="q" placeholder="search by title"></form></li>
 	    <li><a href="">All Stories</a></li>
 	    <li><a href="/create">New Story(+)</a></li>
 	    <li><a href="">My Page</a></li>

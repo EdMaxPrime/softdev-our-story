@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 {% block body %}
 <h1>Stories</h1>
+<div class="form">
+    <u>Filter search results:</u> <br>
+    <form method="GET" action="/search">
+        Genre: <input type="text" name="genre" placeholder="leave blank to search for ALL">&nbsp;&nbsp;&nbsp;&nbsp;
+        Author: <input type="text" name="by" placeholder="leave blank to search for ALL">&nbsp;&nbsp;&nbsp;&nbsp;
+        Title: <input type="text" name="q" placeholder="leave blank to search for ALL"><br>
+        Status: <input type="radio" name="status" value="finished">finished&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="status" value="unfinished">unfinished&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" name="status" value="all">all<br>
+        <input type="submit" value="Search">
+    </form>
+</div>
+<br><br>
 <div id="results">
 {% for story in listStories %}
     {% set id = story["id"] %}
@@ -11,6 +22,7 @@
     [{{ genre }}]
     <br>
 {% endfor %}
+<i>End of search results.</i>
 </div>
 {% endblock %}
 

@@ -4,6 +4,17 @@ textarea{
       background-color: F2F0EF;
       height: 150px;
 }
-body{
-    text-align:center;
+form {
+    padding: none;
+    margin: 0;
+}
+div.form {
+    border-color: #3696E3;
+    border-style: solid;
+    border-width: 2px;
+    background-color: #72B8FF;
+    padding: 10px;
+}
+div.form input[type=text] {
+    width: 200px;
 }
