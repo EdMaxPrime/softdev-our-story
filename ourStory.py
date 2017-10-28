@@ -98,6 +98,16 @@ def user():
 def createStory():
     return render_template('createStory.html', page_title="Create Story")
 
+@app.route('/create/submit', methods=['POST','GET'])
+def created():
+    title=request.form["title"]
+    genre=request.form["genre"]
+    wordLimit=request.form["wordLimit"]
+    content=request.form["storyContent"]
+    userName=session["user"]
+    idNum=mystory.add_new_story(title, userName, genre,wordLimit, 100)
+    return redirect(url_for('story_route')+'?id='+str(idNum))
+
 @app.route('/logout')
 def logout():
         session.pop('user')
