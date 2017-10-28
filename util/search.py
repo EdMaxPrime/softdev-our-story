@@ -11,11 +11,13 @@ db_name = "data/test.db"
 def getAllStories():
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    list_of_tuples = c.execute("SELECT id, title, creator, genre, finished, likes, views FROM stories;").fetchall()
-    db.close()
+    list_of_tuples = c.execute("SELECT id, title, creator, genre, finished, likes, views, contributions FROM stories;").fetchall()
     list_of_stories = []
     for story in list_of_tuples:
-        list_of_stories.append(tuple_to_dictionary(story, ['id', 'title', 'author', 'genre', 'finished', 'popularity', 'views']))
+        story = tuple_to_dictionary(story, ['id', 'title', 'author', 'genre', 'finished', 'popularity', 'views', 'contributions'])
+        story["modified"] = c.execute("SELECT timestamp FROM story_0;").fetchall()[-1][0]
+        list_of_stories.append(story)
+    db.close()
     return list_of_stories
     #return [{"id":0, "title":"Fairy Tale", "author":"Max"}]
 
@@ -79,6 +81,8 @@ def sortby(criteria, list_of_stories):
         list_of_stories.sort(key = lambda story: story["views"])
     elif criteria == 'p':
         list_of_stories.sort(key = lambda story: story["popularity"])
+    elif criteria == 'd':
+        list_of_stories.sort(key = lambda story: story["modified"])
     return list_of_stories
 
 #Returns a list of dictionaries containing username and fullname, matching either one to the supplied input, call with 0 arguments to get ALL users
