@@ -29,10 +29,12 @@ def update_cooldown(story_id,new_cd):
     c.execute(command)
     db.commit()
 
-def update_contributions(story_id,new_contribution):
+def update_contributions(story_id):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "UPDATE stories SET contributions = %d WHERE id = %d" % (new_contribution, story_id)
+    command = "SELECT contributions FROM stories WHERE id = %d;" % (story_id,)
+    total = c.execute(command).fetchone()[0] + 1
+    command = "UPDATE stories SET contributions = %d WHERE id = %d;" % (total, story_id)
     c.execute(command)
     db.commit()
     db.close()
@@ -73,7 +75,11 @@ def add_new_story(new_title, started_creator, selected_genre, word_lim, cooldown
 def modify_story(contributor, text_contributed, story_id):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "INSERT INTO story_%d VALUES (%d, %s, %s, datetime('YYYY-MM-DD HH:MM:SS.SSS'));" %(story_id, 0, contributor, text_contributed)
+    command = "SELECT contributions FROM stories WHERE id = %d;" % (story_id,)
+    version_num = c.execute(command).fetchone()[0]
+    command = "INSERT INTO story_%d VALUES (%d, '%s', '%s', datetime('now'));" %(story_id, version_num, contributor, text_contributed)
+    c.execute(command)
     db.commit()
     db.close()
+    update_contributions(story_id) #add 1 to the total
 
