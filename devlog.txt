@@ -21,3 +21,41 @@ Edited /login route and added /user, /search, /story routes (Not implemented). M
 
 chengM -- 2017-10-25 22:2-
 Implemented login() and join(), with database functionality.
+
+[STUFF FROM THURSDAY 10/26]
+zlotskiyM -- 2017-10-26 21:27
+Wrote validate_login, overcoming concurrency issues in users.py and moving login logic away from the route functions
+
+[STUFF FROM FRIDAY 10/27]
+zlotskiyM -- 2017-10-26 21:27
+Renamed database manipulation files in util/ to reflect their real purpose. One will be used for searching the database, and another for modifying stories
+Changed search.getAllStories() to actually poll the test database and return a list of dictionaries containing id, title, author and genre.
+
+zlotskiyM -- 2017-10-26 22:17
+Moved the story creation apparatus to mystory.py from search.py; imrpoved it to edit the master table and create an individual table for the new story.
+
+zlotskiyM -- 2017-10-26 22:41
+Renamed the story.html template to list.html since it displays all the stories. It also now displays the title, author and genre of each story. Centered the menubar in the base template.
+
+zlotskiyM -- 2017-10-26 23:19
+Added a form to filter search results and styled it, although it has no functionality. Hooked up the search bar in the menu to work with this form.
+
+zlotskiyM -- 2017-10-26 23:36
+Wrote and tested methods in search.py to filter the list of dictionaries by categories like author, genre and title.
+The getAllStories method now puts more metadata in the dictionaries about each story. Wrote and tested method to filter by finished/not status.
+
+zlotskiyM -- 2017-10-26 23:57
+The "filter search results" form now has buttons to sort the results. Wrote and tested a method to sort stories by various categories.
+
+zlotskiyM -- 2017-10-27 12:09
+Moved the function that adds onto stories to the correct python file and improved it to accurately index contributions.
+
+zlotskiyM -- 2017-10-27 13:24
+Created a search results page. It uses the same template as the list of all stories, but it has all the logic to actually filter and sort the results. It will also show search results for users by their name. This is what the form from before will redirect to.
+
+zlotskiyM -- 2017-10-27 14:12
+The website has a new look; changed the color scheme and made the search results more presentable. The genre is now a link to search for all stories of that genre.
+Speaking of genres, you can now search for several at a time by separating them with spaces. Multiple-word genres should not have underscores in them anymore.
+
+zlotskiyM -- 2017-10-27 15:10
+You can now sort search results by date modified. Had to import stuff from the old database into the test one. The create story form extends the base template.
