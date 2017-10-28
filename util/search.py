@@ -16,7 +16,6 @@ def getAllStories():
     list_of_stories = []
     for story in list_of_tuples:
         list_of_stories.append(tuple_to_dictionary(story, ['id', 'title', 'author', 'genre', 'finished', 'popularity', 'views']))
-        list_of_stories[-1]["story"] = True #to differentiate from users
     return list_of_stories
     #return [{"id":0, "title":"Fairy Tale", "author":"Max"}]
 
@@ -80,6 +79,22 @@ def sortby(criteria, list_of_stories):
     elif criteria == 'p':
         list_of_stories.sort(key = lambda story: story["popularity"])
     return list_of_stories
+
+def getUsers(matching=""):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = ""
+    if matching != "":
+        command = "SELECT username, full_name FROM users WHERE (username LIKE '%fragment%') OR (full_name LIKE '%fragment%');"
+        command = command.replace("fragment", matching)
+    else:
+        command = "SELECT username, full_name FROM users;"
+    list_of_tuples = c.execute(command).fetchall()
+    db.close()
+    list_of_users = []
+    for user in list_of_tuples:
+        list_of_users.append(tuple_to_dictionary(user, ["username", "full_name"]))
+    return list_of_users
 
 #add a contribution to a story
 #def add_contribution(story_contribution, story_id):

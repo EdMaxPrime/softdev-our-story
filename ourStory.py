@@ -63,7 +63,7 @@ def joinRedirect():
 
 @app.route('/stories')
 def stories_route():
-    return render_template("list.html", page_title="Stories", listStories=search.sortby("v", search.getAllStories()))
+    return render_template("list.html", page_title="Stories", listStories=search.getAllStories())
 
 @app.route('/story', methods = ['GET'])
 def story_route():
@@ -86,7 +86,7 @@ def search_route():
     if status != "":
         results = search.filter_by_status(status, results)
     results = search.sortby(sortby, results)
-    return render_template("list.html", page_title="Search Results", listStories=results)
+    return render_template("list.html", page_title="Search Results", listStories=results, listUsers=search.getUsers(author))
 
 @app.route('/user', methods = ['GET'])
 def user():
