@@ -1,0 +1,14 @@
+# Changes
+
+The original design document had a limited sitemap. On Day 3 of Creation (tuesday), a proper sitemap was
+handrawn by the project manager based on how the group wanted the pages to look like. It incorporates the
+principle of redirection to "virtual routes" that have no template and serve only to do logic. An example
+is the logout page. The design for the menubar was also formalized on this same scrap of paper.
+
+On Day 4 of Creation/Development, a new project management technique was put into place. Rather than have
+everyone work on their own "spheres" of the website, everyone would work on the same part of it at the same time.
+Example: Micheal makes the login route, William writes methods for login validation, and Jenny makes the login form.
+
+The design document originally called for each story to have its own table, containing a list of contributions.
+One of the columns was called "when" and it contained the date/time of the contributions. As it turns out, "when"
+is an SQL keyword. The group decided rather than escaping this column name, we should change it to "timestamp."
