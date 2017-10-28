@@ -1,8 +1,8 @@
 textarea{
-      width: 50%;
-      border-radius: 4px;
-      background-color: F2F0EF;
-      height: 150px;
+    width: 50%;
+    border-radius: 4px;
+    background-color: F2F0EF;
+    height: 150px;
 }
 form {
     padding: none;
@@ -12,9 +12,34 @@ div.form {
     border-color: #3696E3;
     border-style: solid;
     border-width: 2px;
-    background-color: #72B8FF;
+    background-color: #B2D6FF;
     padding: 10px;
 }
 div.form input[type=text] {
     width: 200px;
+}
+a.storyLink {
+    color: #495DDE;
+    font-family: 'Georgia', serif;
+}
+a.storyLink:hover {
+    color: white;
+    background-color: #8C8FE0;
+}
+a.userLink {
+    color: #CA32BA;
+}
+.genre {
+    font-family: monospace;
+    color: #20996F;
+}
+/* Used in the search results pages for listing stories and users */
+div.list div:nth-child(even) {
+    background-color: #FFDEB6;
+}
+div.list div {
+    padding: 5px;
+}
+div.list div:hover {
+    background-color: #E6E6E6;
 }

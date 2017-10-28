@@ -13,24 +13,27 @@
 <div id="results">
     {% if listUsers %}
         <h2>Users</h2>
-        <div id="users">
+        <div id="users" class="list">
             {% for user in listUsers %}
                 {% set uname = user["username"] %}
+                <div>
                 <a class="userLink" href="/user?id={{ uname }}">{{ uname }}</a> &nbsp;&nbsp;&nbsp;&nbsp;({{ user["full_name"] }})<br>
+                </div>
             {% endfor %}
         </div>
     {% endif %}
     <hr/>
     <h2>Stories</h2>
-    <div id="stories">
+    <div id="stories" class="list">
     {% for story in listStories %}
         {% set id = story["id"] %}
         {% set who = story["author"] %}
         {% set genre = story["genre"] %}
+        <div>
         <a class="storyLink" href="/story?id={{id}}">{{ story["title"] }}</a>
-        By: <a class="userLink" href="/user?id={{ who }}">{{ who }}</a>
-        [{{ genre }}]
-        <br>
+        By: <a class="userLink" href="/user?id={{who}}">{{ who }}</a>
+        Genre: [<a class="genre" href="/search?genre={{genre}}">{{ genre }}</a>]
+        </div>
     {% endfor %}
     <i>End of search results.</i>
     </div>
