@@ -17,11 +17,11 @@ def modify_story(contributor, text_contributed, when, story_id):
 def getAllStories():
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    list_of_tuples = c.execute("SELECT id, title, creator, genre, finished FROM stories;").fetchall()
+    list_of_tuples = c.execute("SELECT id, title, creator, genre, finished, likes, views FROM stories;").fetchall()
     db.close()
     list_of_stories = []
     for story in list_of_tuples:
-        list_of_stories.append(tuple_to_dictionary(story, ['id', 'title', 'author', 'genre', 'finished']))
+        list_of_stories.append(tuple_to_dictionary(story, ['id', 'title', 'author', 'genre', 'finished', 'popularity', 'views']))
     return list_of_stories
     #return [{"id":0, "title":"Fairy Tale", "author":"Max"}]
 
@@ -72,6 +72,19 @@ def filter_by_status(status, list_of_stories):
         if story["finished"] == status:
             results.append(story)
     return results
+
+#Sorts a list of dictionaries by a single letter criteria
+# a: alphabetically by title, c: date created (id), v: number of views, p: number of likes
+def sortby(criteria, list_of_stories):
+    if criteria == 'a':
+        list_of_stories.sort(key = lambda story: story["title"])
+    elif criteria == 'c':
+        list_of_stories.sort(key = lambda story: story["id"])
+    elif criteria == 'v':
+        list_of_stories.sort(key = lambda story: story["views"])
+    elif criteria == 'p':
+        list_of_stories.sort(key = lambda story: story["popularity"])
+    return list_of_stories
 
 #add a contribution to a story
 #def add_contribution(story_contribution, story_id):
