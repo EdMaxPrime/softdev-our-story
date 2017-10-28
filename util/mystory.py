@@ -1,7 +1,6 @@
 import sqlite3 #enables control of Sqlite3
 
-db = sqlite3.connect("ourDB.db") #connects to app database
-c = db.cursor() #enables use of sql commands
+db_name = "data/test.db"
 
 #--------------------------------------------------------------
 
@@ -51,15 +50,18 @@ def update_views(story_id,new_viewcount):
     db.commit()
 
 #Add a new story to the table
-def add_new_story(new_title, started_creator, selected_genre, word_lim, set_cooldown):
-    command = "SELECT MAX(id) FROM AllStories;"
-    result = c.execute(command)
+def add_new_story(new_title, started_creator, selected_genre, word_lim, cooldown):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = "SELECT MAX(id) FROM stories;"
+    result = c.execute(command).fetchone()[0]
+    id = 0
     if result:
-        new_id = result + 1
-    else:
-        new_id = 0
-    command = "INSERT INTO AllStories VALUES(%s, %s, %d, %s, %d, %d, 0, 0, 0, 0);"%(new_title, started_creator, new_id, selected_genre, word_lim, set_cooldown)
+        id = result + 1
+    command = "INSERT INTO stories VALUES('%s', '%s', %d, '%s', %d, %d, 0, 0, 0, 0);"%(new_title, started_creator, id, selected_genre, word_lim, cooldown)
+    c.execute(command)
+    command = "CREATE TABLE story_%d (version_num INTEGER PRIMARY KEY, contributor TEXT, text_contributed TEXT, timestamp TEXT);" % (id,)
     c.execute(command)
     db.commit()
-
+    db.close()
 

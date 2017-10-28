@@ -2,6 +2,7 @@ from flask import Flask, flash, render_template, request, session, redirect, url
 import sqlite3
 import util.users as users
 import util.search as search
+import util.mystory as mystory
 
 
 app = Flask(__name__)
@@ -62,6 +63,7 @@ def joinRedirect():
 
 @app.route('/stories')
 def stories():
+    mystory.add_new_story("Testing V", "max", "none", 3, 1)
     return render_template("story.html", page_title="Stories", listStories=search.getAllStories())
 
 @app.route('/story', methods = ['GET'])

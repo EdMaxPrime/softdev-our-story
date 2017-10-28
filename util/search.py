@@ -6,12 +6,6 @@ c = db.cursor() #creates cursor object to interact with database
 #-------------------------------------------------------------------
 version_number = 0
 db_name = "data/test.db"
-
-#Create story_id table (RUN ONCE)
-def create_story_table(story_id):
-    command = "CREATE TABLE story_%d (version_num INTEGER PRIMARY KEY, contributor TEXT, text_contributed TEXT, when TEXT);"%(story_id)
-    c.execute(command)
-    db.commit()
     
 #begin a story
 def modify_story(contributor, text_contributed, when, story_id):
