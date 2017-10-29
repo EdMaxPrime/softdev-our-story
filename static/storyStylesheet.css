@@ -33,6 +33,18 @@ a.userLink {
     font-family: monospace;
     color: #20996F;
 }
+a.button {
+    display: inline-block;
+    background-color: #C8ECFF;
+    text-decoration: none;
+    color: black;
+    font-family: serif;
+    padding: 5px;
+}
+a.button:hover {
+    background-color: #61C3FF;
+    color: white;
+}
 /* Used in the search results pages for listing stories and users */
 div.list div:nth-child(even) {
     background-color: #FFDEB6;

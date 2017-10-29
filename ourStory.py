@@ -143,8 +143,9 @@ def created():
     genre=request.form["genre"]
     wordLimit=request.form["charLimit"]
     content=request.form["storyContent"]
-    userName=session["user"]
-    idNum=mystory.add_new_story(title, userName, genre,wordLimit, 100)
+    username=session["user"]
+    idNum=mystory.add_new_story(title, username, genre,wordLimit, 100)
+    mystory.modify_story(username, content, idNum)
     return redirect(url_for('story_route')+'?id='+str(idNum))
 
 @app.route('/contribute',methods=['POST', 'GET'])

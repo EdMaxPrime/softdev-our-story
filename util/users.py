@@ -58,7 +58,7 @@ def add_contributions(story_id, user):
     user_prev = get_contributions(user)
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "UPDATE users SET contributions = %s WHERE username = '%s';"%(user_prev + " " + str(story_id), user)
+    command = "UPDATE users SET contributions = contributions || ' %s' WHERE username = '%s';" % (str(story_id), user)
     c.execute(command)
     db.commit()
     db.close()
