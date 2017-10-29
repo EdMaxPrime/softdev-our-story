@@ -131,6 +131,7 @@ def modify_story(contributor, text_contributed, story_id):
     c.execute(command)
     db.commit()
     db.close()
-    add_contributions(story_id, user)
+    #add_contributions(story_id, user)
+    add_contributions(story_id, contributor)
     update_contributions(story_id) #add 1 to the total
 
