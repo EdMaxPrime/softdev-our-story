@@ -102,6 +102,13 @@ def getUsers(matching=""):
         list_of_users.append(tuple_to_dictionary(user, ["username", "full_name"]))
     return list_of_users
 
+#Returns a dictionary with the following keys, similar to getAllStories:
+#id, author, title, genre, finished, popularity, views, contributions, cooldown, word_limit, pieces
+#Pieces is an array of dictionaries pulled from the story_ID table, each has these keys:
+#contributor, version_num, timestamp, text_contributed
+def getStory(story_id):
+    return {}
+
 #add a contribution to a story
 #def add_contribution(story_contribution, story_id):
 #command = "INSERT INTO story_%d VALUES (
