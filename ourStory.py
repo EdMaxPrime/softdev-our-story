@@ -84,6 +84,7 @@ def story_route():
            return render_template("fullStory.html", likes=dictStoryInfo["popularity"], title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"],  pieces=dictStoryInfo["pieces"]) 
        else: #prompts user to log in because story is not finished
            flash("Please log in to view/edit story")
+           return redirect(url_for('home'))
 
                 
 @app.route('/search', methods = ['GET'])
