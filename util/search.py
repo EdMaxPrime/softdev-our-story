@@ -133,7 +133,9 @@ def getStory(story_id):
 #returns latest update by looking at pieces and pulling text_contributed from latest timestamp
 def latestUpdate(story_id):
     dict=getStory(story_id)
-    #return
+    lastPiece=dict["pieces"][-1]
+    return lastPiece["text_contributed"]
+
 
 #checks to see if a user conributed to the story yet    
 def contributedYet(user, story_id):
