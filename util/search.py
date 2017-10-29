@@ -113,13 +113,18 @@ def getUsers(matching=""):
 def getStory(story_id):
     return {}
 
+#returns latest update by looking at pieces and pulling text_contributed from latest timestamp
+def latestUpdate(story_id):
+    dict=getStory(story_id)
+    #return
+
+#checks to see if a user conributed to the story yet    
 def contributedYet(user, story_id):
     dict=getStory(story_id)
     for piece in pieces:
         if piece["contributor"]==user:
             return True
     return False
-#checks to see if a user conributed to the story yet
 
 #add a contribution to a story
 #def add_contribution(story_contribution, story_id):
