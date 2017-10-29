@@ -1,6 +1,7 @@
 zlotskiyM -- 2017-10-23 23:30
 The design document makes its debut. Outlined core features and dvided up the work.
 
+[STUFF FROM TUESDAY 10/24]
 chengM -- 2017-10-24 14:45
 Added flask app file, along with some templates
 
@@ -12,6 +13,10 @@ Moved files around so that they conform to the flask directory structure.
 
 soeW -- 2017-10-24 22:23
 Created the python file for the creation of the story table and to update all fields in the table.
+
+[STUFF FROM WEDNESDAY 10/25]
+soeW -- 2017-10-25 14:08
+Created the util folder and moved Stories into it. Created users.py, which stores user information.
 
 gaoJ -- 2017-10-25 14:45
 created story.html, which will later display stories, and added /stories and /create routes.
