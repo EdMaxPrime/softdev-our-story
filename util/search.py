@@ -103,7 +103,11 @@ def getUsers(matching=""):
     return list_of_users
 
 #Returns a dictionary with the following keys, similar to getAllStories:
-#id, author, title, genre, finished, popularity, views, contributions, cooldown, word_limit, pieces
+#id, author, title, genre, finished, popularity, views, contributions, cooldown, like, likes, word_limit, pieces
+
+#like is true if user has liked the story
+#likes: # of likes this story has
+
 #Pieces is an array of dictionaries pulled from the story_ID table, each has these keys:
 #contributor, version_num, timestamp, text_contributed
 def getStory(story_id):
@@ -120,6 +124,19 @@ def getStory(story_id):
     return storydict
     
     
+
+#returns latest update by looking at pieces and pulling text_contributed from latest timestamp
+def latestUpdate(story_id):
+    dict=getStory(story_id)
+    #return
+
+#checks to see if a user conributed to the story yet    
+def contributedYet(user, story_id):
+    dict=getStory(story_id)
+    for piece in pieces:
+        if piece["contributor"]==user:
+            return True
+    return False
 
 #add a contribution to a story
 #def add_contribution(story_contribution, story_id):

@@ -62,3 +62,6 @@ Speaking of genres, you can now search for several at a time by separating them 
 
 zlotskiyM -- 2017-10-27 15:10
 You can now sort search results by date modified. Had to import stuff from the old database into the test one. The create story form extends the base template.
+
+gaoJ -- 2017-10-28 16:00
+Added to /create/submit route, which is where data is directed after users submit the form to create a story.  This route calls methods that add information to the database.  I also generated the link where users are directed to after they hit submit.  Moreover, I outlined editStory.html (form to edit stories), fullStory.html (shows full story), and /story (display story or not, possibly lead to contribute) and /contribute (modify story) routes in ourStory.py.
