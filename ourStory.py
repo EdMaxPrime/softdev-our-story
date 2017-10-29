@@ -67,7 +67,24 @@ def stories_route():
 
 @app.route('/story', methods = ['GET'])
 def story_route():
-    return
+    storyId=request.args.get("id","")
+    if 'user' in session:
+        if finished:
+            #fill in page_title="" after pulling from db
+            print(storyId)
+            return render_template("fullStory.html") #title="..."
+        #else: #not finished  
+            #if not contributed:
+               #return render_template("editStory.html",title="",lastUpdate="...lastUpdate from db...",charLimit="...limit")
+
+            #if contributed:
+              #return render_template("fullStory.html")#title="..."
+    #else not logged in:
+       #if finished:
+           #return render_template("fullStory.html")#title="..."
+       #else:
+       #flash("Please log in to view/edit story")
+                
 
 @app.route('/search', methods = ['GET'])
 def search_route():
