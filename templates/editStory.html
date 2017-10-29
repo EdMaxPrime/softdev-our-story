@@ -3,8 +3,7 @@
 <h1>{{title}}</h1>
 <p> {{lastUpdate}} </p>
 <form method="POST" action="/contribute">
-  #wordLimit is passed when rendering template
-  {% set limit=str(charLimit) %}
+  {% set limit = charLimit|string() %}
   Add to Story: <br><textarea name="contributedText" maxlength={{limit}} minlength="1"></textarea><br><br>
    <input type="submit" value="Submit">
     </form>
