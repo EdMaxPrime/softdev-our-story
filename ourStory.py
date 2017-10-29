@@ -110,7 +110,8 @@ def search_route():
 
 @app.route('/user', methods = ['GET'])
 def user():
-    return 
+    userName=request.args.get("id", "")
+    return render_template("user.html", page_title=userName, user=userName)
 
 @app.route('/create', methods=['POST','GET'])
 def createStory():
