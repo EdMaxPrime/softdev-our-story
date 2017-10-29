@@ -29,6 +29,7 @@ def update_cooldown(story_id,new_cd):
     c.execute(command)
     db.commit()
 
+#Adds one to the total number of contributions to this story, used by modify_story, don't call on your own
 def update_contributions(story_id):
     db = sqlite3.connect(db_name)
     c = db.cursor()
@@ -38,21 +39,69 @@ def update_contributions(story_id):
     c.execute(command)
     db.commit()
     db.close()
+    return total
 
+#Returns true if contributed, false otherwise
+def has_contributed(story_id, username):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = "SELECT * FROM story_%d WHERE contributor = '%s';" % (story_id, username)
+    contributions = len(c.execute(command).fetchall())
+    db.close()
+    return contributions > 0
+
+#Toggles the status of a story, either finished->unfinished or unfinished->finished
 def update_finished(story_id):
-    command = "UPDATE AllStories SET finished = ~finished WHERE id = %d" % (story_id)
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = "UPDATE stories SET finished = ~finished WHERE id = " + story_id + ";"
     c.execute(command)
     db.commit()
+    db.close()
 
-def update_likes(story_id,new_likes):
-    command = "UPDATE AllStories SET likes = %d WHERE id = %d" % (new_likes, story_id)
-    c.execute(command)
-    db.commit()
+#Returns true if the story is finished, false otherwise
+def is_finished(story_id):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = "SELECT finished FROM stories WHERE id = " + story_id + ";"
+    status = c.execute(command).fetchone()[0]
+    db.close()
+    return status == 1
 
-def update_views(story_id,new_viewcount):
-    command = "UPDATE AllStories SET views = %d WHERE id = %d" % (new_viewcount, story_id)
+# Expects the story ID and either +1(new like) or -1(unlike) for delta
+def update_likes(story_id, delta):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = "UPDATE stories SET likes = likes + %d WHERE id = %d;" % (delta, story_id)
     c.execute(command)
     db.commit()
+    db.close()
+
+def get_likes(story_id):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = "SELECT likes FROM stories WHERE id = " + story_id + ";"
+    likes = c.execute(command).fetchone()[0]
+    db.close()
+    return likes
+
+#Adds 1 view to the total
+def update_views(story_id):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = "UPDATE stories SET views = views + 1 WHERE id = " + story_id + ";"
+    c.execute(command)
+    db.commit()
+    db.close()
+
+#Returns the number of views this story has
+def get_views(story_id):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = "SELECT views FROM stories WHERE id = " + story_id + ";"
+    views = c.execute(command).fetchone()[0]
+    db.close()
+    return views
 
 #Add a new story to the table
 def add_new_story(new_title, started_creator, selected_genre, word_lim, cooldown):
