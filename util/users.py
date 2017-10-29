@@ -14,7 +14,7 @@ def create_table():
 def add_new_user(db, user, pw, name):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "INSERT INTO users VALUES ('%s', '%s', '%s', '-1', '0');"%(user,pw,name)
+    command = "INSERT INTO users VALUES ('%s', '%s', '%s', '', '');"%(user,pw,name)
     c.execute(command)
     db.commit()
     db.close()
@@ -39,10 +39,10 @@ def update_password(user, old_pass, new_pass):
     db.close()
 
 #Updates a user's fullname to a new one    
-def update_fullname(user, old_name, new_name):
+def update_fullname(user, new_name):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "UPDATE users SET fullname = %s WHERE fullname = %s AND username = %s;" %(new_name,old_name,user)
+    command = "UPDATE users SET fullname = '%s' WHERE username = '%s';" % (new_name, user)
     c.execute(command)
     db.commit()
     db.close()
@@ -96,7 +96,7 @@ def get_likes(user):
     db = sqlite3.connect(db_name)
     c = db.cursor()
     command = "SELECT likes FROM users WHERE username = '%s';" %(user,)
-    print command
+    print c.execute(command).fetchone()
     likes = c.execute(command).fetchone()[0]
     db.close()
     return likes
