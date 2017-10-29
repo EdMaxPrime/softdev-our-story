@@ -116,22 +116,19 @@ def getStory(story_id):
     storydict = {}
     piecesdict = {}
     list_of_piecesdict = []
-    command = "SELECT contributor, version_num, timestamp, text_contributed FROM story_%d;"%(story_id,)
+    command = "SELECT contributor, version_num, timestamp, text_contributed FROM story_%d;"%(int(story_id),)
     list_of_pieces = c.execute(command).fetchall()
     for contribute in list_of_pieces:
         piecesdict = tuple_to_dictionary(contribute, ["contributor","version_num", "timestamp", "text_contributed"])
         list_of_piecesdict.append(piecesdict)
-    command = "SELECT creator, title, genre, finished, likes, views, contributions, word_limit FROM stories WHERE id = %d;"%(story_id,)
+    command = "SELECT creator, title, genre, finished, likes, views, contributions, word_limit FROM stories WHERE id = %d;"%(int(story_id),)
     list_of_attributes = c.execute(command).fetchone()
     storydict = tuple_to_dictionary(list_of_attributes, ["author", "title", "genre", "finished", "popularity", "views", "contributions", "cooldown", "word_limit"])
     storydict["pieces"] = list_of_piecesdict
-    storydict["id"] = story_id
+    storydict["id"] = int(story_id)
     db.commit()
     db.close()
     return storydict
-
-    
-    
 
 #returns latest update by looking at pieces and pulling text_contributed from latest timestamp
 def latestUpdate(story_id):
@@ -150,5 +147,3 @@ def contributedYet(user, story_id):
 #def add_contribution(story_contribution, story_id):
 #command = "INSERT INTO story_%d VALUES (
 
-print getAllStories()
-print getStory(1)
