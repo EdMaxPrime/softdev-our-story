@@ -76,3 +76,6 @@ Added to /create/submit route, which is where data is directed after users submi
 
 soeW -- 2017-10-29 15:13
 Added a getStory method to the search.py file to facilitate most of the features of the front end of the website. Modified the users table to introduce their own contribution field. Added methods to users to get and update both contributions and likes.
+
+gaoJ -- 2017-10-29 16:00
+Created templates for site can't be reached and users' pages.
