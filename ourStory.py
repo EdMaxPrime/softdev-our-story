@@ -68,6 +68,7 @@ def stories_route():
 ##DIDNT TEST YET
 @app.route('/story', methods = ['GET'])
 def story_route():
+    #return render_template("invalid.html") when story?id=blah doesn't exist in db
     storyId=request.args.get("id","")
     dictStoryInfo=search.getStory(storyId)
     if 'user' in session: #check if user is logged in
