@@ -13,12 +13,12 @@
         timestamp: the time of this addition
         The pieces should be in order of version_num -->
 <h1>{{title}}</h1>
-<h6>Started by <a class="userLink" href="/user?id={{author}}">{{ author }}</a><br>
-    Genre: <a class="genre" href="/search?genre={{genre}}">{{ genre }}</a></h6>
+<b>Started by <a class="userLink" href="/user?id={{author}}">{{ author }}</a><br>
+    Genre: <a class="genre" href="/search?genre={{genre}}">{{ genre }}</a></b><br>
 {% if like %}
     You and {{ likes }} others like this story. <a class="button" href="/like?id={{id}}">Unlike</a>
 {% else %}
-    Click here if you <a class="button" href="/like?id={{id}}">Like</a> this story.
+    Click here if you <a class="button" href="/like?id={{id}}">like</a> this story.
 {% endif %}
 <p>
     {% for piece in pieces %}
