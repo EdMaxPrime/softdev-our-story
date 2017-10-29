@@ -112,7 +112,7 @@ def search_route():
 @app.route('/user', methods = ['GET'])
 def user():
     userName=request.args.get("id", "")
-    return render_template("user.html", page_title=userName, user=userName)
+    return render_template("user.html", page_title=userName, user=userName, me=session["user"])
 
 @app.route('/like', methods = ['GET'])
 def like():
