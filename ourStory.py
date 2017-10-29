@@ -77,9 +77,9 @@ def story_route():
             return render_template("fullStory.html", likes=dictStoryInfo["popularity"], title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], pieces=dictStoryInfo["pieces"]) 
         else: #story is not finished  
             if not search.contributedYet(user, storyId): #user did not contribute yet, so user is directed to edit the story
-               return render_template("editStory.html",title=dictStoryInfo["title"],lastUpdate=search.latestUpdate(storyId),charLimit=dictStoryInfo["word_limit"])
+               return render_template("editStory.html",id=dictStoryInfo["id"], title=dictStoryInfo["title"],lastUpdate=search.latestUpdate(storyId),charLimit=dictStoryInfo["word_limit"])
             else: #user has already contributed, so show story
-               return render_template("fullStory.html",likes=dictStoryInfo["popularity"], title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], pieces=dictStoryInfo["pieces"])
+               return render_template("fullStory.html",likes=dictStoryInfo["popularity"], title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"], pieces=dictStoryInfo["pieces"])
     else: #not logged in
        if dictStoryInfo["finished"]: #checks if story is finished, guests can view finished story
            return render_template("fullStory.html", likes=dictStoryInfo["popularity"], title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"],  pieces=dictStoryInfo["pieces"]) 
@@ -128,14 +128,17 @@ def created():
     idNum=mystory.add_new_story(title, userName, genre,wordLimit, 100)
     return redirect(url_for('story_route')+'?id='+str(idNum))
 
-@app.route('/contribute',methods=['POST','GET'])
+@app.route('/contribute',methods=['POST', 'GET'])
 def contribute():
     #didn't test yet
     userName=session["user"]
     textAdded=request.form["contributedText"]
-    storyId=request.args.get("id", "")
-    mystory.modify_story(userName, textAdded,storyId)
+    #storyId=request.args.get("id", "")
+    storyId=request.form["id"]
+    print("id "+storyId)
+    mystory.modify_story(userName, textAdded,int(storyId))
     return redirect(url_for('story_route')+'?id='+str(storyId))
+
 
 @app.route('/logout')
 def logout():
