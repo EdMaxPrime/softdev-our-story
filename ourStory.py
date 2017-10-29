@@ -68,22 +68,24 @@ def stories_route():
 ##DIDNT TEST YET
 @app.route('/story', methods = ['GET'])
 def story_route():
+    #return render_template("invalid.html") when story?id=blah doesn't exist in db
     storyId=request.args.get("id","")
     dictStoryInfo=search.getStory(storyId)
     if 'user' in session: #check if user is logged in
         user=session["user"]
         if dictStoryInfo["finished"]: #check if story is finished
-            return render_template("fullStory.html", title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], like=dictStoryInfo["like"], likes=dictStoryInfo["likes"], pieces=dictStoryInfo["pieces"]) 
+            return render_template("fullStory.html", likes=dictStoryInfo["popularity"], title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], pieces=dictStoryInfo["pieces"]) 
         else: #story is not finished  
             if not search.contributedYet(user, storyId): #user did not contribute yet, so user is directed to edit the story
-               return render_template("editStory.html",title=dictStoryInfo["title"],lastUpdate=search.latestUpdate(storyId),charLimit=dictStoryInfo["charLimit"])
+               return render_template("editStory.html",title=dictStoryInfo["title"],lastUpdate=search.latestUpdate(storyId),charLimit=dictStoryInfo["word_limit"])
             else: #user has already contributed, so show story
-               return render_template("fullStory.html",title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], like=dictStoryInfo["like"], likes=dictStoryInfo["likes"], pieces=dictStoryInfo["pieces"])
+               return render_template("fullStory.html",likes=dictStoryInfo["popularity"], title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], pieces=dictStoryInfo["pieces"])
     else: #not logged in
        if dictStoryInfo["finished"]: #checks if story is finished, guests can view finished story
-           return render_template("fullStory.html", title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], like=dictStoryInfo["like"], likes=dictStoryInfo["likes"], pieces=dictStoryInfo["pieces"]) 
+           return render_template("fullStory.html", likes=dictStoryInfo["popularity"], title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"],  pieces=dictStoryInfo["pieces"]) 
        else: #prompts user to log in because story is not finished
            flash("Please log in to view/edit story")
+           return redirect(url_for('home'))
 
                 
 @app.route('/search', methods = ['GET'])
@@ -109,7 +111,8 @@ def search_route():
 
 @app.route('/user', methods = ['GET'])
 def user():
-    return 
+    userName=request.args.get("id", "")
+    return render_template("user.html", page_title=userName, user=userName)
 
 @app.route('/create', methods=['POST','GET'])
 def createStory():
