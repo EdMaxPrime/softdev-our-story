@@ -107,7 +107,19 @@ def getUsers(matching=""):
 #Pieces is an array of dictionaries pulled from the story_ID table, each has these keys:
 #contributor, version_num, timestamp, text_contributed
 def getStory(story_id):
-    return {}
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    storydict = {}
+    piecesdict = {}
+    command = "SELECT contributor, version_num, timestamp, text_contributed FROM story_%s;"%(story_id)
+    list_of_pieces = c.execute(command).fetchall()
+    piecesdict = tuple_to_dictionary(list_of_pieces, ["contributor","version_num", "timestamp", "text_contributed"])
+    command = "SELECT author, title, genre, finished, popularity, views, contributions, word_limit FROM stories WHERE id = %s;"%(story_id)
+    list_of_attributes = c.execute(command).fetchall()
+    storydict = tuple_to_dictionary(list_of_attributes, ["%s"%(story_id),"author", "title", "genre", "finished", "popularity", "views", "contributions", "cooldown", "word_limit", piecesdict])
+    return storydict
+    
+    
 
 #add a contribution to a story
 #def add_contribution(story_contribution, story_id):
