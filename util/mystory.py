@@ -72,7 +72,7 @@ def is_finished(story_id):
 def update_likes(story_id, delta):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "UPDATE stories SET likes = likes + %d WHERE id = %d;" % (delta, story_id)
+    command = "UPDATE stories SET likes = likes + %s WHERE id = %s;" % (delta, story_id)
     c.execute(command)
     db.commit()
     db.close()
