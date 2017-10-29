@@ -118,7 +118,7 @@ def getStory(story_id):
     command = "SELECT contributor, version_num, timestamp, text_contributed FROM story_%s;"%(story_id)
     list_of_pieces = c.execute(command).fetchall()
     piecesdict = tuple_to_dictionary(list_of_pieces, ["contributor","version_num", "timestamp", "text_contributed"])
-    command = "SELECT author, title, genre, finished, popularity, views, contributions, word_limit FROM stories WHERE id = %s;"%(story_id)
+    command = "SELECT creator, title, genre, finished, likes, views, contributions, word_limit FROM stories WHERE id = %s;"%(story_id)
     list_of_attributes = c.execute(command).fetchall()
     storydict = tuple_to_dictionary(list_of_attributes, ["%s"%(story_id),"author", "title", "genre", "finished", "popularity", "views", "contributions", "cooldown", "word_limit", piecesdict])
     db.commit()
