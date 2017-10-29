@@ -12,4 +12,6 @@ Example: Micheal makes the login route, William writes methods for login validat
 
 The design document originally called for each story to have its own table, containing a list of contributions.
 One of the columns was called "when" and it contained the date/time of the contributions. As it turns out, "when"
-is an SQL keyword. The group decided rather than escaping this column name, we should change it to "timestamp."
+is an SQL keyword. The group decided rather than escaping this column name, we should change it to "timestamp." We also
+decided to have each user have its own contribution field, since a user's contributions are an integral part of his/her
+profile.
