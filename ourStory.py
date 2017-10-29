@@ -51,7 +51,11 @@ def join():
 @app.route('/joinRedirect', methods=['POST','GET'])
 def joinRedirect():
     db = sqlite3.connect("data/ourDB.db") #opens ourDB.db
-    if request.form['password'] == request.form['passwordConfirm']:
+    print users.get_users()
+    print [request.form['user']]
+    if (request.form['user'],) in users.get_users():
+        flash("Username already taken")
+    elif request.form['password'] == request.form['passwordConfirm']:
         users.add_new_user(db, request.form['user'], request.form['password'], request.form['name'])
         db.commit()
         session['user'] = request.form['user']

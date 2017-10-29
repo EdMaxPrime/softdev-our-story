@@ -10,6 +10,12 @@ db_name = "data/ourDB.db"
 def create_table():
     cursor.execute("CREATE TABLE users (username TEXT PRIMARY KEY, password TEXT, full_name TEXT, likes TEXT, contributions TEXT);")
 
+def get_users():
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = "SELECT username FROM users;"
+    return c.execute(command).fetchall()
+
 #Adds a new record to the users table    
 def add_new_user(db, user, pw, name):
     db = sqlite3.connect(db_name)
