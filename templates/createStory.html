@@ -4,8 +4,8 @@
     <form method="POST" action="/create/submit">
       Title: <input type="text" name="title"><br><br>
       Genre: <input type="text" name="genre"><br><i>Enter the genre (e.g. romance, scifi, horror)</i><br><br>
-      Character Limit: <input type="number" name="charLimit"><br><i>Set the character limit for future contributors</i><br><br>
-      Story Content: <br><textarea name="storyContent"></textarea><br><br>
+      Character Limit: <input type="number" name="charLimit" min="1"><br><i>Set the character limit for future contributors</i><br><br>
+      Story Content: <br><textarea minlength="1" name="storyContent"></textarea><br><br>
       <input type="submit" value="Create">
       </form>
 {% endblock %}
