@@ -73,3 +73,6 @@ You can now sort search results by date modified. Had to import stuff from the o
 
 gaoJ -- 2017-10-28 16:00
 Added to /create/submit route, which is where data is directed after users submit the form to create a story.  This route calls methods that add information to the database.  I also generated the link where users are directed to after they hit submit.  Moreover, I outlined editStory.html (form to edit stories), fullStory.html (shows full story), and /story (display story or not, possibly lead to contribute) and /contribute (modify story) routes in ourStory.py.
+
+soeW -- 2017-10-29 15:13
+Added a getStory method to the search.py file to facilitate most of the features of the front end of the website. Modified the users table to introduce their own contribution field. Added methods to users to get and update both contributions and likes.
