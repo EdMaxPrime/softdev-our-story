@@ -1,4 +1,5 @@
 # Changes
+Instead of having word limits, we decided to have character limits since that is a feature of textarea in HTML.
 
 The original design document had a limited sitemap. On Day 3 of Creation (tuesday), a proper sitemap was
 handrawn by the project manager based on how the group wanted the pages to look like. It incorporates the
