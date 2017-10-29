@@ -65,25 +65,26 @@ def joinRedirect():
 def stories_route():
     return render_template("list.html", page_title="Stories", listStories=search.getAllStories())
 
+##DIDNT TEST YET
 @app.route('/story', methods = ['GET'])
 def story_route():
     storyId=request.args.get("id","")
-    if 'user' in session:
-        if finished:
-            #fill in page_title="" after pulling from db
-            print(storyId)
-            return render_template("fullStory.html") #title="..."
-        #else: #not finished  
-            #if not contributed:
-               #return render_template("editStory.html",title="",lastUpdate="...lastUpdate from db...",charLimit="...limit")
+    dictStoryInfo=search.getStory(storyId)
+    if 'user' in session: #check if user is logged in
+        user=session["user"]
+        if dictStoryInfo["finished"]: #check if story is finished
+            return render_template("fullStory.html", title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], like=dictStoryInfo["like"], likes=dictStoryInfo["likes"], pieces=dictStoryInfo["pieces"]) 
+        else: #story is not finished  
+            if not search.contributedYet(user, storyId): #user did not contribute yet, so user is directed to edit the story
+               return render_template("editStory.html",title=dictStoryInfo["title"],lastUpdate=search.latestUpdate(storyId),charLimit=dictStoryInfo["charLimit"])
+            else: #user has already contributed, so show story
+               return render_template("fullStory.html",title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], like=dictStoryInfo["like"], likes=dictStoryInfo["likes"], pieces=dictStoryInfo["pieces"])
+    else: #not logged in
+       if dictStoryInfo["finished"]: #checks if story is finished, guests can view finished story
+           return render_template("fullStory.html", title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], like=dictStoryInfo["like"], likes=dictStoryInfo["likes"], pieces=dictStoryInfo["pieces"]) 
+       else: #prompts user to log in because story is not finished
+           flash("Please log in to view/edit story")
 
-            #if contributed:
-              #return render_template("fullStory.html")#title="..."
-    #else not logged in:
-       #if finished:
-           #return render_template("fullStory.html")#title="..."
-       #else:
-       #flash("Please log in to view/edit story")
                 
 @app.route('/search', methods = ['GET'])
 def search_route():
