@@ -1,5 +1,5 @@
 import sqlite3 #enables control of Sqlite3
-
+from users import add_contributions
 db_name = "data/test.db"
 
 #--------------------------------------------------------------
@@ -131,5 +131,6 @@ def modify_story(contributor, text_contributed, story_id):
     c.execute(command)
     db.commit()
     db.close()
+    add_contributions(story_id, user)
     update_contributions(story_id) #add 1 to the total
 
