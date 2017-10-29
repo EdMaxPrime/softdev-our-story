@@ -33,6 +33,7 @@
         <a class="storyLink" href="/story?id={{id}}">{{ story["title"] }}</a>
         By: <a class="userLink" href="/user?id={{who}}">{{ who }}</a>
         Genre: [<a class="genre" href="/search?genre={{genre}}">{{ genre }}</a>]
+        Has {{ story["popularity"] }} upvotes and {{ story["views"] }} views
         </div>
     {% endfor %}
     <i>End of search results.</i>
