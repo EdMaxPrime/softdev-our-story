@@ -8,13 +8,13 @@ db_name = "data/ourDB.db"
 
 #Run once, creates the table
 def create_table():
-    c.execute("CREATE TABLE users (username TEXT PRIMARY KEY, password TEXT, full_name TEXT, likes TEXT, contributions TEXT);")
+    cursor.execute("CREATE TABLE users (username TEXT PRIMARY KEY, password TEXT, full_name TEXT, likes TEXT, contributions TEXT);")
 
 #Adds a new record to the users table    
 def add_new_user(db, user, pw, name):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "INSERT INTO users VALUES ('%s', '%s', '%s', '0', '0');"%(user,pw,name)
+    command = "INSERT INTO users VALUES ('%s', '%s', '%s', '-1', '0');"%(user,pw,name)
     c.execute(command)
     db.commit()
     db.close()
@@ -24,7 +24,7 @@ def add_new_user(db, user, pw, name):
 def update_username(old_user, new_user):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "UPDATE users SET username = %s WHERE username = %s;" %(new_user,old_user)
+    command = "UPDATE users SET username = '%s' WHERE username = '%s';" %(new_user,old_user)
     c.execute(command)
     db.commit()
     db.close()
@@ -33,7 +33,7 @@ def update_username(old_user, new_user):
 def update_password(user, old_pass, new_pass):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "UPDATE users SET password = %s WHERE password = %s AND username = %s;" %(new_pass,old_pass,user)
+    command = "UPDATE users SET password = '%s' WHERE password = '%s' AND username = '%s';" %(new_pass,old_pass,user)
     c.execute(command)
     db.commit()
     db.close()
@@ -52,7 +52,7 @@ def add_contributions(story_id, user):
     user_prev = get_contributions(user)
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "UPDATE users SET contributions = %s WHERE username = %s;"%(user_prev + " " + str(story_id), user)
+    command = "UPDATE users SET contributions = %s WHERE username = '%s';"%(user_prev + " " + str(story_id), user)
     c.execute(command)
     db.commit()
     db.close()
@@ -61,7 +61,7 @@ def add_contributions(story_id, user):
 def get_contributions(user):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "SELECT contributions FROM users WHERE username = %s;" %(user,)
+    command = "SELECT contributions FROM users WHERE username = '%s';" %(user,)
     contributions = c.execute(command).fetchone()[0]
     db.close()
     return contributions
@@ -71,7 +71,22 @@ def add_like(liked_id, user):
     user_prev = get_likes(user)
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "UPDATE users SET likes = %s WHERE username = %s;"%(user_prev + " " + str(liked_id), user)
+    command = "UPDATE users SET likes = '%s' WHERE username = '%s';"%(user_prev + " " + str(liked_id), user)
+    print command
+    c.execute(command)
+    db.commit()
+    db.close()
+
+#Removes a story that a user has liked
+def remove_like(liked_id, user):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    like_list = get_likes(user).split()
+    like_list.pop(like_list.index(liked_id))
+    newlikes = ' '.join(like_list)
+    print newlikes
+    command = "UPDATE users SET likes = '%s' WHERE username = '%s';"%(newlikes, user)
+    print command
     c.execute(command)
     db.commit()
     db.close()
@@ -80,14 +95,19 @@ def add_like(liked_id, user):
 def get_likes(user):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "SELECT likes FROM users WHERE username = %s;" %(user,)
+    command = "SELECT likes FROM users WHERE username = '%s';" %(user,)
+    print command
     likes = c.execute(command).fetchone()[0]
     db.close()
     return likes
 
+#Returns if a user has liked a given story or not
+def has_user_liked(story_id, user):
+    return story_id in get_likes(user).split()
+
 #Given a username, will retrieve the user's password and fullname
 def get_user_info(c, user):
-    command = "SELECT password,fullname FROM users WHERE username = %s;" %(user) 
+    command = "SELECT password,fullname FROM users WHERE username = '%s';" %(user) 
 
 #Given a username and password, will return true if the two correspond, false otherwise
 def validate_login(uname, pword):
@@ -98,3 +118,4 @@ def validate_login(uname, pword):
     if users == None:
         return False
     return users[0] == pword
+#create_table()
