@@ -74,12 +74,12 @@ def story_route():
     if 'user' in session: #check if user is logged in
         user=session["user"]
         if dictStoryInfo["finished"]: #check if story is finished
-            return render_template("fullStory.html", likes=dictStoryInfo["popularity"], title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], pieces=dictStoryInfo["pieces"]) 
+            return render_template("fullStory.html", like = users.has_user_liked(storyId, user), likes=dictStoryInfo["popularity"] - 1, title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], pieces=dictStoryInfo["pieces"]) 
         else: #story is not finished  
             if not search.contributedYet(user, storyId): #user did not contribute yet, so user is directed to edit the story
-               return render_template("editStory.html",title=dictStoryInfo["title"],lastUpdate=search.latestUpdate(storyId),charLimit=dictStoryInfo["word_limit"])
+               return render_template("editStory.html", title=dictStoryInfo["title"],lastUpdate=search.latestUpdate(storyId),charLimit=dictStoryInfo["word_limit"])
             else: #user has already contributed, so show story
-               return render_template("fullStory.html",likes=dictStoryInfo["popularity"], title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], pieces=dictStoryInfo["pieces"])
+               return render_template("fullStory.html", like = users.has_user_liked(storyId, user), likes=dictStoryInfo["popularity"] - 1, title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], pieces=dictStoryInfo["pieces"])
     else: #not logged in
        if dictStoryInfo["finished"]: #checks if story is finished, guests can view finished story
            return render_template("fullStory.html", likes=dictStoryInfo["popularity"], title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"],  pieces=dictStoryInfo["pieces"]) 
@@ -113,6 +113,21 @@ def search_route():
 def user():
     userName=request.args.get("id", "")
     return render_template("user.html", page_title=userName, user=userName)
+
+@app.route('/like', methods = ['GET'])
+def like():
+    user=session["user"]
+    storyId=request.args.get("id","")
+    print users.has_user_liked(storyId, user)
+    if not users.has_user_liked(storyId, user):
+        mystory.update_likes(storyId, 1)
+        users.add_like(storyId, user)
+    else:
+        mystory.update_likes(storyId, -1)
+        users.remove_like(storyId, user)
+
+    return redirect("/story?id=" + storyId)
+
 
 @app.route('/create', methods=['POST','GET'])
 def createStory():
