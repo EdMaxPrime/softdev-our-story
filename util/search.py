@@ -113,6 +113,14 @@ def getUsers(matching=""):
 def getStory(story_id):
     return {}
 
+def contributedYet(user, story_id):
+    dict=getStory(story_id)
+    for piece in pieces:
+        if piece["contributor"]==user:
+            return True
+    return False
+#checks to see if a user conributed to the story yet
+
 #add a contribution to a story
 #def add_contribution(story_contribution, story_id):
 #command = "INSERT INTO story_%d VALUES (
