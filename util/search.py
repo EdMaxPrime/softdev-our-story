@@ -121,7 +121,7 @@ def getStory(story_id):
     for contribute in list_of_pieces:
         piecesdict = tuple_to_dictionary(contribute, ["contributor","version_num", "timestamp", "text_contributed"])
         list_of_piecesdict.append(piecesdict)
-    command = "SELECT creator, title, genre, finished, likes, views, contributions, word_limit FROM stories WHERE id = %d;"%(int(story_id),)
+    command = "SELECT creator, title, genre, finished, likes, views, contributions, cooldown, word_limit FROM stories WHERE id = %d;"%(int(story_id),)
     list_of_attributes = c.execute(command).fetchone()
     storydict = tuple_to_dictionary(list_of_attributes, ["author", "title", "genre", "finished", "popularity", "views", "contributions", "cooldown", "word_limit"])
     storydict["pieces"] = list_of_piecesdict
@@ -138,7 +138,7 @@ def latestUpdate(story_id):
 #checks to see if a user conributed to the story yet    
 def contributedYet(user, story_id):
     dict=getStory(story_id)
-    for piece in pieces:
+    for piece in dict["pieces"]:
         if piece["contributor"]==user:
             return True
     return False
