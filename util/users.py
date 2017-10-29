@@ -14,7 +14,7 @@ def create_table():
 def add_new_user(db, user, pw, name):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "INSERT INTO users VALUES ('%s', '%s', '%s', '-1', '0');"%(user,pw,name)
+    command = "INSERT INTO users VALUES ('%s', '%s', '%s', '', '');"%(user,pw,name)
     c.execute(command)
     db.commit()
     db.close()
