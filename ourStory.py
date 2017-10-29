@@ -85,7 +85,6 @@ def story_route():
        #else:
        #flash("Please log in to view/edit story")
                 
-
 @app.route('/search', methods = ['GET'])
 def search_route():
     results = search.getAllStories()
@@ -124,6 +123,15 @@ def created():
     userName=session["user"]
     idNum=mystory.add_new_story(title, userName, genre,wordLimit, 100)
     return redirect(url_for('story_route')+'?id='+str(idNum))
+
+@app.route('/contribute',methods=['POST','GET'])
+def contribute():
+    #didn't test yet
+    userName=session["user"]
+    textAdded=request.form["contributedText"]
+    storyId=request.args.get("id", "")
+    mystory.modify_story(userName, textAdded,storyId)
+    return redirect(url_for('story_route')+'?id='+str(storyId))
 
 @app.route('/logout')
 def logout():
