@@ -55,7 +55,7 @@ def joinRedirect():
         users.add_new_user(db, request.form['user'], request.form['password'], request.form['name'])
         db.commit()
         session['user'] = request.form['user']
-        return redirect(url_for('stories'))
+        return redirect(url_for('stories_route'))
     else:
         flash("Passwords do not match")
     return redirect(url_for('join'))
