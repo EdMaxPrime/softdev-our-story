@@ -91,3 +91,6 @@ Updated user.html so that it can display all the stories that a user has contrib
 
 chengM -- 2017-10-29 23:48
 Update /story and /user so that it renders invalid.html if the id in the query string is not found.
+
+zlotskiyM -- 2017-10-30 00:40
+Uploaded final design document and wiped the databases. The owner of a story can now end the story. Created DW's account.

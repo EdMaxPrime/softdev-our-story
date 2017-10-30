@@ -15,3 +15,6 @@ One of the columns was called "when" and it contained the date/time of the contr
 is an SQL keyword. The group decided rather than escaping this column name, we should change it to "timestamp." We also
 decided to have each user have its own contribution field, since a user's contributions are an integral part of his/her
 profile.
+
+Every user will now have a column named "contributions" which is symmetrical to likes in format but stores
+the ID of every story this user has contributed to instead.
