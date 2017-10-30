@@ -69,7 +69,6 @@ def joinRedirect():
 def stories_route():
     return render_template("list.html", page_title="Stories", listStories=search.getAllStories())
 
-##DIDNT TEST YET
 @app.route('/story', methods = ['GET'])
 def story_route():
     #return render_template("invalid.html") when story?id=blah doesn't exist in db
