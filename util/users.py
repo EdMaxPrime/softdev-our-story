@@ -10,6 +10,18 @@ db_name = "data/ourDB.db"
 def create_table():
     cursor.execute("CREATE TABLE users (username TEXT PRIMARY KEY, password TEXT, full_name TEXT, likes TEXT, contributions TEXT);")
 
+def user_exists(username):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = "SELECT * FROM users WHERE username = '%s';"%(username)
+    result = c.execute(command).fetchone()
+    db.commit()
+    db.close()
+    if result:
+        return True 
+    else:
+        return False
+
 def get_users():
     db = sqlite3.connect(db_name)
     c = db.cursor()

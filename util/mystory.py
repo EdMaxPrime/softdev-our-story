@@ -8,26 +8,51 @@ db_name = "data/test.db"
 def create_stories_table():
     c.execute("CREATE TABLE AllStories (title TEXT, creator TEXT, id INTERGER PRIMARY KEY, genre TEXT, word_limit INTEGER, cooldown INTEGER, contributions INTEGER, finished BOOLEAN, likes INTEGER, views INTEGER);")
 
+#Returns true if story exists, false if not
+def story_exists(story_id):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
+    command = "SELECT name FROM sqlite_master WHERE type='table' AND name='story_%d';"%(int(story_id))
+    result = c.execute(command).fetchall()
+    db.commit()
+    db.close()
+    if result:
+        return True
+    else:
+        return False
+
 #Update various fields
 def update_title(story_id,new_title):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
     command = "UPDATE AllStories SET title = %s WHERE id = %d" % (new_title, story_id)
     c.execute(command)
     db.commit()
+    db.close()
 
 def update_genre(story_id,new_genre):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
     command = "UPDATE AllStories SET genre = %s WHERE id = %d" % (new_genre, story_id)
     c.execute(command)
     db.commit()
+    db.close()
 
 def update_word_limit(story_id,new_limit):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
     command = "UPDATE AllStories SET word_limit = %d WHERE id = %d" % (new_limit, story_id)
     c.execute(command)
     db.commit()
+    db.close()
 
 def update_cooldown(story_id,new_cd):
+    db = sqlite3.connect(db_name)
+    c = db.cursor()
     command = "UPDATE AllStories SET cooldown = %d WHERE id = %d" % (new_cd, story_id)
     c.execute(command)
     db.commit()
+    db.close()
 
 #Adds one to the total number of contributions to this story, used by modify_story, don't call on your own
 def update_contributions(story_id):

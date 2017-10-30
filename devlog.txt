@@ -83,5 +83,11 @@ Created templates for site can't be reached and users' pages.
 chengM -- 2017-10-29 16:11
 Added liking and unliking functionality.
 
+chengM -- 2017-10-29 17:24
+Updated join(). Now flashes "Username taken" if user tries to register with a duplicate username.
+
 gaoJ -- 2017-10-29 22:00
 Updated user.html so that it can display all the stories that a user has contributed to.
+
+chengM -- 2017-10-29 23:48
+Update /story and /user so that it renders invalid.html if the id in the query string is not found.
