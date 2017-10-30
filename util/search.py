@@ -130,6 +130,13 @@ def getStory(story_id):
     db.close()
     return storydict
 
+#Given an array of integer ids, will return a list of stories in the format of getStory()
+def getStories(list_of_id):
+    list = []
+    for id in list_of_id:
+        list.append(getStory(id))
+    return list
+
 #returns latest update by looking at pieces and pulling text_contributed from latest timestamp
 def latestUpdate(story_id):
     dict=getStory(story_id)
