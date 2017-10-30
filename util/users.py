@@ -75,12 +75,17 @@ def add_contributions(story_id, user):
     db.commit()
     db.close()
 
-#Retrieves all stories a user has contributed to
+#Returns a list of numerical IDs of every story this user contributed to
 def get_contributions(user):
     db = sqlite3.connect(db_name)
     c = db.cursor()
     command = "SELECT contributions FROM users WHERE username = '%s';" %(user,)
     contributions = c.execute(command).fetchone()[0]
+    contributions_as_list = contributions.split(" ")
+    contributions = []
+    for string in contributions_as_list:
+        if string.isdigit():
+            contributions.append(int(string))
     db.close()
     return contributions
     

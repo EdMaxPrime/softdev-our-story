@@ -122,6 +122,7 @@ def search_route():
 
 @app.route('/user', methods = ['GET'])
 def user():
+    print 'user' in session
     if 'user' not in session:
         return render_template("invalid.html")
     userName=request.args.get("id", "")
@@ -131,36 +132,7 @@ def user():
         userName=session["user"]
     print("user: "+userName)
     me=session["user"]
-    return render_template("user.html", page_title=userName, user=userName, me=me, contributedStories=contributedStories(userName), likedStories=likedStories(userName), contribInfo=dictInfoContributed(userName))
-
-def likedStories(user):
-    numId=mystory.idNow()
-    print("liked")
-    print(user)
-    print(users.has_user_liked(8,user))
-    temp=[]
-    for i in range(numId+1):
-        if users.has_user_liked(i, user):
-            print("yes: "+str(i))
-            temp.append(i)
-    return temp
-
-def contributedStories(user):
-    numId=mystory.idNow()
-    print("contribute")
-    temp=[]
-    for i in range(numId+1):
-        if search.contributedYet(user, i):
-            print("yes: "+str(i))
-            temp.append(i)
-    return temp
-
-def dictInfoContributed(user):
-    temp=[]
-    listStoryIds=contributedStories(user)
-    for i in listStoryIds:
-        temp.append(search.getStory(i))
-    return temp
+    return render_template("user.html", page_title=userName, user=userName, me=me, contributedStories=search.getStories(users.get_contributions(userName)), likedStories=search.getStories(users.get_likes(userName)))
     
 @app.route('/like', methods = ['GET'])
 def like():
