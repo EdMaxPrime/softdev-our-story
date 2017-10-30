@@ -5,11 +5,23 @@
 {% else %}
 <h1>{{user}}'s Page</h1>
 {% endif %}
-{% for i in contributedStories %}
-{{i}}
-{% endfor %}
-{{likedStories}}
-{% for j in likedStories %}
-{{j}}
-{% endfor %}
+ <h2>Stories Contributed To</h2>
+ <div id="stories" class="list">
+    {% for i in contribInfo %}
+      {% set storyId = i["id"] %}
+    {% set title = i["title"] %}
+        {% set who = i["author"] %}
+    {% set genre = i["genre"] %}
+    {% set popularity = i["popularity"] %}
+    {% set views = i["views"] %}
+        <div>
+        <a class="storyLink" href="/story?id={{storyId}}">{{ title }}</a>
+        By: <a class="userLink" href="/user?id={{who}}">{{ who }}</a>
+        Genre: [<a class="genre" href="/search?genre={{genre}}">{{ genre }}</a>]
+        Has {{popularity }} upvotes and {{ views }} views
+        </div>
+    {% endfor %}
+    </div>
+    
+
 {% endblock %}
