@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block body %}
 <!-- Jinja variables:
+    me: the name of the logged in user or ""
+    finished: is the story open to contribution? True or False
     title: the title of the story
     author: the creator of this story
     genre: the genre of this story
@@ -19,6 +21,11 @@
     You and {{ likes }} others like this story. <a class="button" href="/like?id={{id}}">Unlike</a>
 {% else %}
     Click here if you <a class="button" href="/like?id={{id}}">like</a> this story.
+{% endif %}
+{% if me == author and finished == False %}
+    <br>As the creator of this story, you can close it to further modification by pressing <form style="display:inline-block;" action="/end" method="POST"><input type="submit" name="end" value="End Story"><input type="hidden" name="id" value="{{id}}"></form>
+{% elif me == author and finished == True %}
+    <br>As the creator of this story, you can open it to further modification by pressing <form style="display:inline-block;" action="/end" method="POST"><input type="submit" name="end" value="Continue Story"><input type="hidden" name="id" value="{{id}}"></form>
 {% endif %}
 <p>
     {% for piece in pieces %}
