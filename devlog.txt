@@ -82,3 +82,6 @@ Created templates for site can't be reached and users' pages.
 
 chengM -- 2017-10-29 16:11
 Added liking and unliking functionality.
+
+gaoJ -- 2017-10-29 22:00
+Updated user.html so that it can display all the stories that a user has contributed to.
