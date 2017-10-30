@@ -122,16 +122,11 @@ def search_route():
 
 @app.route('/user', methods = ['GET'])
 def user():
+    userName = request.args.get("id", session.get("user", ""))
     print 'user' in session
-    if 'user' not in session:
-        return render_template("invalid.html")
-    userName=request.args.get("id", "")
     if not users.user_exists(userName):
         return render_template("invalid.html")
-    if(userName==""):
-        userName=session["user"]
-    print("user: "+userName)
-    me=session["user"]
+    me=session.get("user", "")
     return render_template("user.html", page_title=userName, user=userName, me=me, contributedStories=search.getStories(users.get_contributions(userName)), likedStories=search.getStories(users.get_likes(userName)))
     
 @app.route('/like', methods = ['GET'])
@@ -178,8 +173,9 @@ def contribute():
 
 @app.route('/logout')
 def logout():
+    if 'user' in session:
         session.pop('user')
-        return redirect(url_for('home'))
+    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.debug = True
