@@ -120,6 +120,14 @@ def add_new_story(new_title, started_creator, selected_genre, word_lim, cooldown
     db.close()
     return id
 
+def idNow():
+    db = sqlite3.connect(db_name)
+    command = "SELECT MAX(id) FROM stories;"
+    c = db.cursor()
+    result = c.execute(command).fetchone()[0]
+    id = 0
+    if result:
+        return result
 
 #add contribution to a story
 def modify_story(contributor, text_contributed, story_id):
