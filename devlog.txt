@@ -79,3 +79,6 @@ Added a getStory method to the search.py file to facilitate most of the features
 
 gaoJ -- 2017-10-29 16:00
 Created templates for site can't be reached and users' pages.
+
+chengM -- 2017-10-29 16:11
+Added liking and unliking functionality.
