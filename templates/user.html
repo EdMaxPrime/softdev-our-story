@@ -1,8 +1,15 @@
 {% extends "base.html" %}
 {% block body %}
-{% if user=="" %}
+{% if user=="" or user==me %}
 <h1>My Page</h1>
 {% else %}
 <h1>{{user}}'s Page</h1>
 {% endif %}
+{% for i in contributedStories %}
+{{i}}
+{% endfor %}
+{{likedStories}}
+{% for j in likedStories %}
+{{j}}
+{% endfor %}
 {% endblock %}
