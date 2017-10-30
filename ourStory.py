@@ -17,7 +17,7 @@ def home():
 
 @app.route('/help')
 def help():
-    return
+    return render_template("help.html")
 
 @app.route('/login', methods=['POST','GET'])
 def login():
@@ -58,10 +58,12 @@ def joinRedirect():
     elif request.form['password'] == request.form['passwordConfirm']:
         users.add_new_user(db, request.form['user'], request.form['password'], request.form['name'])
         db.commit()
+        db.close()
         session['user'] = request.form['user']
-        return redirect(url_for('stories_route'))
+        return redirect(url_for('help'))
     else:
         flash("Passwords do not match")
+    db.close()
     return redirect(url_for('join'))
     
 

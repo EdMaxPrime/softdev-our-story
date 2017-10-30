@@ -47,7 +47,7 @@ a.button:hover {
 }
 /* Used in the search results pages for listing stories and users */
 div.list div:nth-child(even) {
-    background-color: #FFDEB6;
+    background-color: #FFEBD2;
 }
 div.list div {
     padding: 5px;
