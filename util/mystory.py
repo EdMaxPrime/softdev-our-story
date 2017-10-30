@@ -1,6 +1,6 @@
 import sqlite3 #enables control of Sqlite3
 from users import add_contributions
-db_name = "data/test.db"
+db_name = "data/ourDB.db"
 
 #--------------------------------------------------------------
 
@@ -79,7 +79,7 @@ def has_contributed(story_id, username):
 def update_finished(story_id):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "UPDATE stories SET finished = ~finished WHERE id = " + story_id + ";"
+    command = "UPDATE stories SET finished = (1 - finished) WHERE id = " + str(story_id) + ";"
     c.execute(command)
     db.commit()
     db.close()
@@ -88,7 +88,7 @@ def update_finished(story_id):
 def is_finished(story_id):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "SELECT finished FROM stories WHERE id = " + story_id + ";"
+    command = "SELECT finished FROM stories WHERE id = " + str(story_id) + ";"
     status = c.execute(command).fetchone()[0]
     db.close()
     return status == 1

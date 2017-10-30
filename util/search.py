@@ -1,11 +1,8 @@
 import sqlite3 #enables use of Sqlite3
 
-db = sqlite3.connect("ourDB.db") # opens ourDB.db
-c = db.cursor() #creates cursor object to interact with database
-
 #-------------------------------------------------------------------
 version_number = 0
-db_name = "data/test.db"
+db_name = "data/ourDB.db"
 
 #Returns all the stories in the master table "stories" with their metadata as a list of dictionaries
 def getAllStories():

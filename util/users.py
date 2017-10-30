@@ -1,8 +1,5 @@
 import sqlite3 #enables control of an sqlite database
 
-db = sqlite3.connect("data/ourDB.db") #opens ourDB.db
-cursor = db.cursor() #opens a cursor object
-
 #-------------------------------------------------------------
 db_name = "data/ourDB.db"
 
