@@ -116,7 +116,28 @@ def search_route():
 @app.route('/user', methods = ['GET'])
 def user():
     userName=request.args.get("id", "")
-    return render_template("user.html", page_title=userName, user=userName, me=session["user"])
+    if(userName==""):
+        userName=session["user"]
+    print("user: "+userName)
+    me=session["user"]
+    return render_template("user.html", page_title=userName, user=userName, me=me, contributedStories=contributedStories(userName), likedStories=likedStories(userName))
+
+def likedStories(user):
+    numId=mystory.idNow()
+    print("NUM: "+str(numId))
+    temp2=[]
+    for j in range(numId+1):
+        if users.has_user_liked(j, user):
+            temp2.append(j)
+    return temp2
+
+def contributedStories(user):
+    numId=mystory.idNow()
+    temp=[]
+    for i in range(numId+1):
+        if search.contributedYet(user, i):
+            temp.append(i)
+    return temp
 
 @app.route('/like', methods = ['GET'])
 def like():
