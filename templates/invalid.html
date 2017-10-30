@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% block body %}
 <h1>This site can't be reached!</h1>
+{% set errors = get_flashed_messages() %}
+{% for err in errors %}
+    <span style="color: #a00;">{{ err }}</span>
+{% endfor %}
+<br><br>
 <img src="static/404.gif" alt="404">
 {% endblock %}
