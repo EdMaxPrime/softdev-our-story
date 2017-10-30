@@ -74,10 +74,9 @@ def get_contributions(user):
     
 #Adds a story that a user has liked
 def add_like(liked_id, user):
-    user_prev = get_likes(user)
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    command = "UPDATE users SET likes = '%s' WHERE username = '%s';"%(user_prev + " " + str(liked_id), user)
+    command = "UPDATE users SET likes = likes || '%s ' WHERE username = '%s';"%(str(liked_id), user)
     print command
     c.execute(command)
     db.commit()
@@ -87,12 +86,10 @@ def add_like(liked_id, user):
 def remove_like(liked_id, user):
     db = sqlite3.connect(db_name)
     c = db.cursor()
-    like_list = get_likes(user).split()
-    like_list.pop(like_list.index(liked_id))
+    like_list = get_likes(user)
+    like_list.pop(like_list.index(int(liked_id)))
     newlikes = ' '.join(like_list)
-    print newlikes
     command = "UPDATE users SET likes = '%s' WHERE username = '%s';"%(newlikes, user)
-    print command
     c.execute(command)
     db.commit()
     db.close()
@@ -102,14 +99,18 @@ def get_likes(user):
     db = sqlite3.connect(db_name)
     c = db.cursor()
     command = "SELECT likes FROM users WHERE username = '%s';" %(user,)
-    print c.execute(command).fetchone()
     likes = c.execute(command).fetchone()[0]
+    likes_as_list = likes.split(" ")
+    likes = []
+    for string in likes_as_list:
+        if string.isdigit():
+            likes.append(int(string))
     db.close()
     return likes
 
 #Returns if a user has liked a given story or not
 def has_user_liked(story_id, user):
-    return story_id in get_likes(user).split()
+    return int(story_id) in get_likes(user)
 
 #Given a username, will retrieve the user's password and fullname
 def get_user_info(c, user):

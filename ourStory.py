@@ -120,7 +120,7 @@ def user():
         userName=session["user"]
     print("user: "+userName)
     me=session["user"]
-    return render_template("user.html", page_title=userName, user=userName, me=me, contributedStories=contributedStories(userName), likedStories=likedStories(userName))
+    return render_template("user.html", page_title=userName, user=userName, me=me, contributedStories=contributedStories(userName), likedStories=search.getStories(users.get_likes(me)))
 
 def likedStories(user):
     numId=mystory.idNow()
