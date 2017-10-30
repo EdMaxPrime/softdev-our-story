@@ -8,8 +8,19 @@
 {% for i in contributedStories %}
 {{i}}
 {% endfor %}
-{{likedStories}}
-{% for j in likedStories %}
-{{j}}
-{% endfor %}
+<hr/>
+<h3>Liked stories</h3>
+<div id="stories" class="list">
+    {% for story in likedStories %}
+        {% set id = story["id"] %}
+        {% set who = story["author"] %}
+        {% set genre = story["genre"] %}
+        <div>
+        <a class="storyLink" href="/story?id={{id}}">{{ story["title"] }}</a>
+        By: <a class="userLink" href="/user?id={{who}}">{{ who }}</a>
+        Genre: [<a class="genre" href="/search?genre={{genre}}">{{ genre }}</a>]
+        Has {{ story["popularity"] }} upvotes and {{ story["views"] }} views
+        </div>
+    {% endfor %}
+    </div>
 {% endblock %}
