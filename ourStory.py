@@ -76,6 +76,7 @@ def story_route():
     storyId=request.args.get("id","")
    
     if not mystory.story_exists(storyId):
+        flash("This story doesnt exist")
         return render_template("invalid.html")
 
     dictStoryInfo=search.getStory(storyId)
@@ -83,16 +84,16 @@ def story_route():
     if 'user' in session: #check if user is logged in
         mystory.update_views(storyId)
         user=session["user"]
-        if dictStoryInfo["finished"]: #check if story is finished
-            return render_template("fullStory.html", like = users.has_user_liked(storyId, user), likes=dictStoryInfo["popularity"] - 1, title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], pieces=dictStoryInfo["pieces"]) 
+        if dictStoryInfo["finished"] == 1: #check if story is finished
+            return render_template("fullStory.html", like = users.has_user_liked(storyId, user), likes=dictStoryInfo["popularity"] - 1, title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], pieces=dictStoryInfo["pieces"], me = session["user"], finished = True) 
         else: #story is not finished  
             if not search.contributedYet(user, storyId): #user did not contribute yet, so user is directed to edit the story
                 return render_template("editStory.html",id=dictStoryInfo["id"], title=dictStoryInfo["title"],lastUpdate=search.latestUpdate(storyId),charLimit=dictStoryInfo["word_limit"])
             else: #user has already contributed, so show story
-                return render_template("fullStory.html", like = users.has_user_liked(storyId, user), likes=dictStoryInfo["popularity"] - 1, title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], pieces=dictStoryInfo["pieces"])
+                return render_template("fullStory.html", like = users.has_user_liked(storyId, user), likes=dictStoryInfo["popularity"] - 1, title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"], pieces=dictStoryInfo["pieces"], me = session["user"], finished = False)
     else: #not logged in
         mystory.update_views(storyId)
-        if dictStoryInfo["finished"]: #checks if story is finished, guests can view finished story
+        if dictStoryInfo["finished"] == 1: #checks if story is finished, guests can view finished story
             return render_template("fullStory.html", likes=dictStoryInfo["popularity"], title=dictStoryInfo["title"], author=dictStoryInfo["author"], genre=dictStoryInfo["genre"],id=dictStoryInfo["id"],  pieces=dictStoryInfo["pieces"]) 
         else: #prompts user to log in because story is not finished
             flash("Please log in to view/edit story")
@@ -177,6 +178,13 @@ def contribute():
         return render_template("invalid.html")
     mystory.modify_story(userName, textAdded,int(storyId))
     return redirect(url_for('story_route')+'?id='+str(storyId))
+
+#Used to finish a story
+@app.route('/end', methods=['POST', 'GET'])
+def end_route():
+    storyId = request.form.get("id", "")
+    mystory.update_finished(storyId)
+    return redirect(url_for("story_route") + "?id=" + storyId)
 
 
 @app.route('/logout')
