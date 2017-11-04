@@ -133,10 +133,10 @@ def add_new_story(new_title, started_creator, selected_genre, word_lim, cooldown
     db = sqlite3.connect(db_name)
     c = db.cursor()
     command = "SELECT MAX(id) FROM stories;"
-    result = c.execute(command).fetchone()[0]
+    result = c.execute(command).fetchone()
     id = 0
-    if result:
-        id = result + 1
+    if result != None: #if this is not the first story
+        id = result[0] + 1
     command = "INSERT INTO stories VALUES('%s', '%s', %d, '%s', %d, %d, 1, 0, 0, 0);"%(new_title, started_creator, id, selected_genre, int(word_lim), cooldown)
     c.execute(command)
     command = "CREATE TABLE story_%d (version_num INTEGER PRIMARY KEY, contributor TEXT, text_contributed TEXT, timestamp TEXT);" % (id,)
