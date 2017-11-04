@@ -168,15 +168,14 @@ def contribute():
     userName=session.get("user", "")
     textAdded=request.form.get("contributedText", "")
     storyId=request.form.get("id", "")
-    print("id "+storyId)
     if userName == "":
         flash("You are not logged in and can't contribute to stories")
         return render_template("invalid.html")
     elif not storyId.isdigit():
         flash("This story does not exist")
         return render_template("invalid.html")
-    elif len(textAdded) < 1 or len(textAdded) > int(getStory(int(storyId))["cooldown"]):
-        flash("Invalid contribution length")
+    elif len(textAdded) < 1 or len(textAdded) > int(search.getStory(int(storyId))["cooldown"]):
+        flash("Invalid contribution length, it is either too long or too short")
         return render_template("invalid.html")
     mystory.modify_story(userName, textAdded,int(storyId))
     return redirect(url_for('story_route')+'?id='+str(storyId))
