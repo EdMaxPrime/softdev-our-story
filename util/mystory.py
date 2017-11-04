@@ -135,7 +135,9 @@ def add_new_story(new_title, started_creator, selected_genre, word_lim, cooldown
     command = "SELECT MAX(id) FROM stories;"
     result = c.execute(command).fetchone()
     id = 0
-    if result != None: #if this is not the first story
+    new_title = new_title.replace("'", "''") #escape strings in sql
+    selected_genre = selected_genre.replace("'", "''")
+    if result != None and len(result) > 0 and result[0] != None: #if this is not the first story
         id = result[0] + 1
     command = "INSERT INTO stories VALUES('%s', '%s', %d, '%s', %d, %d, 1, 0, 0, 0);"%(new_title, started_creator, id, selected_genre, int(word_lim), cooldown)
     c.execute(command)
@@ -160,6 +162,7 @@ def modify_story(contributor, text_contributed, story_id):
     c = db.cursor()
     command = "SELECT contributions FROM stories WHERE id = %d;" % (story_id,)
     version_num = c.execute(command).fetchone()[0]
+    text_contributed = text_contributed.replace("'", "''") #escape strings in sql
     command = "INSERT INTO story_%d VALUES (%d, '%s', '%s', datetime('now'));" %(story_id, version_num, contributor, text_contributed)
     c.execute(command)
     db.commit()
